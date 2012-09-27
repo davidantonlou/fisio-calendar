@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es" dir="ltr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!--<script type="text/javascript" src="http://www.google.com/jsapi?key=AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI"></script>-->
+	<!--<script src="calendar.js"></script>-->
+ <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+  <title>Formación | Fisioterapia Valdespartera</title>  
+
+</head>
+
+<body >
+	<div id="calendarTitle"></div>
+<div id="events"></div>
+
+
+
+
+<script>
+var key = "AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI";
+
+var JSONObject= {
+"end": {
+"date": "2012-09-30"
+},
+"start": {
+"date": "2012-09-30"
+},
+"description": "HOlas"
+};
+
+  
+ $.ajax({
+  url: "https://www.googleapis.com/calendar/v3/calendars/david110288%40gmail.com/events?sendNotifications=true&fields=creator%2Cdescription&key=AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI",
+  dataType: 'json',
+  data: JSONObject,
+  success: alert("bien")
+});
+  </script>
+
+  <!--<script type="text/javascript">
+//loadCalendar('https://www.google.com/calendar/feeds/david110288@gmail.com/public/full');
+add();
+</script>-->
+<!--	<iframe src="https://www.google.com/calendar/embed?src=david110288%40gmail.com&ctz=Europe/Madrid" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>-->
+</body>
+</html>
