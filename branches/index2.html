@@ -23,17 +23,21 @@ var key = "AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI";
 
 var JSONObject= {
 "end": {
-"date": "2012-10-03"
+"date": "2012-10-04"
 },
 "start": {
-"date": "2012-10-03"
+"date": "2012-10-04"
 },
-"description": "HOlas"
+"summary": "Evento de prueba",
+"description": "Descripcion de prueba",
+"email": "david110288@gmail.com",
+"method": "email",
+"minutes": 1
 };
 
   
  $.ajax({
-  url: "https://www.googleapis.com/calendar/v3/calendars/david110288%40gmail.com/events?sendNotifications=true&fields=creator%2Cdescription&key=AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI",
+  url: "https://www.googleapis.com/calendar/v3/calendars/david110288%40gmail.com/events?sendNotifications=true&key=AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI",
   dataType: 'json',
   data: JSONObject,
   success: alert("bien")
