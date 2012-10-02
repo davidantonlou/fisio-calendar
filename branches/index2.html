@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <script src="https://apis.google.com/js/client.js"></script>
+	 <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <script>
+      function auth() {
+        var config = {
+          'client_id': '555913871761.apps.googleusercontent.com',
+          'scope': 'https://www.googleapis.com/auth/calendar'
+        };
+        gapi.auth.authorize(config, function() {
+          console.log('login complete');
+          console.log(gapi.auth.getToken());
+        });
+      }
+	  
+    </script>
+	
+	<script>
+	function insert(){
+var key = "AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI";
+
+var JSONObject= {
+"end": {
+"date": "2012-10-03"
+},
+"start": {
+"date": "2012-10-03"
+},
+"description": "HOlas"
+};
+
+  
+ $.ajax({
+  url: "https://www.googleapis.com/calendar/v3/calendars/david110288%40gmail.com/events?sendNotifications=true&fields=creator%2Cdescription&key=AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI",
+  dataType: 'json',
+  data: JSONObject,
+  success: alert("bien")
+});
+}
+  </script>
+  </head>
+
+  <body>
+    <button onclick="auth();insert();">Authorize</button>
+  </body>
+</html>
