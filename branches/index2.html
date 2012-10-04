@@ -4,6 +4,7 @@
 	 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
     <script>
+     var token;
       function auth() {
         var config = {
           'client_id': '555913871761.apps.googleusercontent.com',
@@ -12,40 +13,64 @@
         gapi.auth.authorize(config, function() {
           console.log('login complete');
           console.log(gapi.auth.getToken());
+          token = gapi.auth.getToken();
         });
+        return true;
       }
-	  
+      	  
     </script>
 	
-	<script>
-	function insert(){
-var key = "AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI";
+	<script >
+	function insert()
+	{
+			
+		var key = "AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI";
 
-var JSONObject= {
-"end": {
-"date": "2012-10-04"
-},
-"start": {
-"date": "2012-10-04"
-},
-"summary": "Evento de prueba",
-"description": "Descripcion de prueba",
-"email": "david110288@gmail.com",
-"method": "email",
-"minutes": 1
-};
-  
- $.ajax({
-  url: "https://www.googleapis.com/calendar/v3/calendars/david110288%40gmail.com/events?sendNotifications=true&key=AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI",
-  dataType: 'json',
-  data: JSONObject,
-  success: alert("bien")
-});
-}
+		var JSONObject= 
+		{
+				  "start": {
+				    "date": "2012-10-04"
+				  },
+				  "end": {
+				    "date": "2012-10-04"
+				  },
+				  "attendees": [
+				    {
+				      "email": "david110288@gmail.com",
+				      "displayName": "My Name"
+				    
+				    }
+				  ],
+				  "reminders": [{
+				   
+				    "method":"sms",
+				    "minutes":1
+				  }]
+				};
+		 //url: "https://www.googleapis.com/calendar/v3/calendars/david110288%40gmail.com/events?sendNotifications=true&key=AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI"
+		 $.ajax({
+		  url: "https://www.googleapis.com/calendar/v3/calendars/david110288%40gmail.com/events?sendNotifications=true&key=AIzaSyCFj15TpkchL4OUhLD1Q2zgxQnMb7v3XaM",
+		  dataType: 'json',
+		  data: JSONObject,
+		  type: 'POST',
+		  contentType: 'application/json; charset=UTF-8',
+		  beforeSend : function(req) {
+		      req.setRequestHeader('Authorization', token.token_type+" "+token.access_token);
+		  },
+		  success: function(result){
+	            alert("success");
+	      },
+          error: function(jqXHR, textStatus, errorThrown){
+                alert("error:" + textStatus + " exception:" + errorThrown);
+          }
+
+		});
+	}
   </script>
   </head>
 
   <body>
-    <button onclick="auth();insert();">Authorize</button>
+    <button onclick="auth();">Authorize</button>
+    <button onclick="insert();">Authorize</button>
   </body>
 </html>
