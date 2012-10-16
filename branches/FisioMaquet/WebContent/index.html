@@ -37,6 +37,59 @@
     }
     
     </script>
+    
+    <script>
+    var clientId = '555913871761.apps.googleusercontent.com';
+    var apiKey = 'AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI';
+    var scopes = 'https://www.googleapis.com/auth/calendar';
+    
+    	function handleClientLoad() {
+    	  gapi.client.setApiKey(apiKey);
+    	  window.setTimeout(checkAuth,1);
+    	  checkAuth();
+    	}
+
+    	function checkAuth() {
+    	  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true},
+    	      handleAuthResult);
+    	}
+
+    	function handleAuthResult(authResult) {
+
+    		gapi.client.load('calendar', 'v3', function(){addEvent();});
+    	    
+    	  
+    	}
+
+    	function handleAuthClick(event) {
+    	  gapi.auth.authorize(
+    	      {client_id: clientId, scope: scopes, immediate: false},
+    	      handleAuthResult);
+    	  return false;
+    	}
+    	
+    	function addEvent()
+    	{
+    	var resource = {
+    			  "summary": "Appointment",
+    			  "location": "Somewhere",
+    			  "start": {
+    			    "dateTime": "2012-10-16T10:00:00.000-07:00"
+    			  },
+    			  "end": {
+    			    "dateTime": "2012-10-16T10:25:00.000-07:00"
+    			  }
+    			};
+    			var request = gapi.client.calendar.events.insert({
+    			  'calendarId': 'primary',
+    			  'resource': resource
+    			});
+    			request.execute(function(resp) {
+    			  console.log(resp);
+    			});
+    	}
+    </script>
+     <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 </head>
 <body>
 <div class="background">
