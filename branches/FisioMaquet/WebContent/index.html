@@ -31,6 +31,8 @@
     
     function changeCalendar(value)
     {
+    	// Opción 0 -> Todos calendarios por defecto
+    	if(value == 0)document.getElementById("doctorCalendar").src="https://www.google.com/calendar/embed?title=Fisioterapia%20Valdespartera&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showCalendars=0&amp;showTz=0&amp;mode=WEEK&amp;height=600&amp;wkst=2&amp;bgcolor=%23ffffff&amp;src=hv5gfg41m9g2a87kr27uso10p0%40group.calendar.google.com&amp;color=%23B1440E&amp;src=t82rb1fmjt84v4mq2sso91fr7c%40group.calendar.google.com&amp;color=%232F6309&amp;src=fisiocalendar%40gmail.com&amp;color=%232952A3&amp;ctz=Europe%2FMadrid";
     	if(value == 1)document.getElementById("doctorCalendar").src="https://www.google.com/calendar/embed?src=fisiocalendar%40gmail.com&ctz=Europe/Madrid";
     	if(value == 2)document.getElementById("doctorCalendar").src="https://www.google.com/calendar/embed?src=hv5gfg41m9g2a87kr27uso10p0%40group.calendar.google.com&ctz=Europe/Madrid";
     	if(value == 3)document.getElementById("doctorCalendar").src="https://www.google.com/calendar/embed?src=t82rb1fmjt84v4mq2sso91fr7c%40group.calendar.google.com&ctz=Europe/Madrid";
@@ -56,28 +58,28 @@
 
     	function handleAuthResult(authResult) {
 
-    		gapi.client.load('calendar', 'v3', function(){addEvent();});
+    		gapi.client.load('calendar', 'v3', function(){addEvent('NUEVO', '2012-10-22T10:00:00.000-07:00','2012-10-22T10:25:00.000-07:00');});
     	    
     	  
     	}
 
-    	function handleAuthClick(event) {
+    	function handleAuthClick() {
     	  gapi.auth.authorize(
     	      {client_id: clientId, scope: scopes, immediate: false},
     	      handleAuthResult);
     	  return false;
     	}
     	
-    	function addEvent()
+    	function addEvent(title, startDateTime, endDateTime)
     	{
-    	var resource = {
-    			  "summary": "Appointment",
+    		var resource = {
+    			  "summary": title,
     			  "location": "Somewhere",
     			  "start": {
-    			    "dateTime": "2012-10-16T10:00:00.000-07:00"
+    			    "dateTime": startDateTime
     			  },
     			  "end": {
-    			    "dateTime": "2012-10-16T10:25:00.000-07:00"
+    			    "dateTime": endDateTime
     			  }
     			};
     			var request = gapi.client.calendar.events.insert({
@@ -91,13 +93,14 @@
     </script>
      <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 </head>
-<body>
+<body onLoad="javascript:handleAuthClick();">
 <div class="background">
 <h1>Reserva de citas</h1>
  <table>
  	<tr>
  		<td>Seleccione doctor :
  			<select onchange="changeCalendar(this.value);">
+ 				<option selected="selected" value="0">-- Selecciona un Fisio</option>
  				<option value="1">Pablo</option>
  				<option value="2">Jose</option>
  				<option value="3">Maria</option>
@@ -108,7 +111,7 @@
  		<td> Fecha de reserva: <input type="text" id="datepicker" /> <input type="button" value="Reservar" onclick="alert('Reservado!')"/></td>
  	</tr>
  	<tr>
- 		<td><iframe id="doctorCalendar" src="https://www.google.com/calendar/embed?src=fisiocalendar%40gmail.com&ctz=Europe/Madrid" style="border: 0" width="500" height="400" ></iframe></td>
+ 		<td><iframe id="doctorCalendar" src="https://www.google.com/calendar/embed?title=Fisioterapia%20Valdespartera&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showCalendars=0&amp;showTz=0&amp;mode=WEEK&amp;height=600&amp;wkst=2&amp;bgcolor=%23ffffff&amp;src=hv5gfg41m9g2a87kr27uso10p0%40group.calendar.google.com&amp;color=%23B1440E&amp;src=t82rb1fmjt84v4mq2sso91fr7c%40group.calendar.google.com&amp;color=%232F6309&amp;src=fisiocalendar%40gmail.com&amp;color=%232952A3&amp;ctz=Europe%2FMadrid" style=" border-width:0 " width="800" height="600" frameborder="0" scrolling="no"></iframe></td>
  		<td style="padding-left:30px;">
  			<div id="fb-root"></div>
 			<script>(function(d, s, id) {
