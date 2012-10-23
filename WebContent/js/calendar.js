@@ -61,25 +61,53 @@ function addEvent(calendarId, title, description, location, startDate, startHour
 	request.execute(function(resp) {
 	  	console.log(resp);
 	});
-	
 }
 
-// Eliminar un evento del calendario
-function deleteEvent(){
-	
-	
-}
 
 // Modificar un evento
-function updateEvent(){
-	
-	
+//** startDate: 2012-10-25T10:00:00.000-07:00
+//** endDate: 2012-10-25T10:00:00.000-07:00
+function updateEvent(calendarId, eventId, title, description, startDate, endDate, visibility){
+	var resource = {
+			"summary": title,
+			"description": description,
+			"start": {
+				"dateTime": startDate,
+			},
+			"end": {
+				"dateTime": endDate,
+			},
+			"visibility": visibility
+		};
+	var request = gapi.client.calendar.events.update({
+		'calendarId': calendarId,
+		'resource': resource
+	});
+	request.execute(function(resp) {
+	  	console.log(resp);
+	});	
 }
 
 // Listar los eventos de un calendario
-function listEvents(){
-	
-	
+// ** startDate: 2012-10-25T10:00:00.000-07:00
+// ** endDate: 2012-10-25T10:00:00.000-07:00
+// iCalUID: Identificador del calendario sobre el que se buscará
+function listEvents(calendarId, iCalUID, startDate, endDate){
+	var resource = {
+			"iCalUID": iCalUID,
+			"timeMin": startDate,
+			"timeMax": endDate
+		};
+	var request = gapi.client.calendar.events.list({
+		'calendarId': calendarId,
+		'resource': resource
+	});
+	request.execute(function(resp) {
+	  	console.log(resp);
+	  	
+	  	// TODO: Habría que hacer un método para filtrar el XML que nos devuelven en resp
+	  	//       y mostrar las horas libres en el comboBox de selección de horas
+	});
 }
 
 
