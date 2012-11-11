@@ -1,9 +1,8 @@
 <?php
-	// Variable para determinar si es administrador
-	// Si es administrador, se saltará el paso de la plataforma de pago
-	$isAdmin = false;
-	if (isset($_SESSION['id']))
-		$isAdmin = true;
+	$isAdmin=false;
+	if (isset($_SESSION['user']))
+		$isAdmin=true;
+
 ?>
 
 <!doctype html>
@@ -105,6 +104,7 @@
 </head>
 <body onLoad="javascript:handleAuthClick();">
 <div class="background">
+<input type="button" value="Desconectar" onclick="javascript: location.href='login.php?modo=desconectar';"/></td>
 <h1>Reserva de citas</h1>
 <form name="createEvent" type="post">
 	 <table>
