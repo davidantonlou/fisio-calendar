@@ -3,6 +3,10 @@
 	if (isset($_POST['isReserva'])){
 		$hoy = getDate();
 		$str_fecha = $hoy["year"] + $hoy["mon"] + $hoy["mday"] + $hoy["hours"] + $hoy["minutes"] + $hoy["seconds"];
+		
+	$isAdmin=false;
+	if (isset($_SESSION['user']))
+		$isAdmin=true;
 ?>
 
 <!doctype html>
@@ -32,6 +36,17 @@
 ?>
 <div class="background">
 	<h1>Confirmar Reserva</h1>
+	
+<?php 
+	if ($isAdmin){
+?>
+
+	<form name="confirm_date" method="post" action="resultado_reserva.php">
+	</form>
+
+<?php 
+	}else{
+?>
 	<form name="confirm_date" method="post" action="tpv01.cajarural.com/nuevo_tpv/tpv/jsp/tpvjp_validaComercio.jsp">
 		<input type="hidden" name="importe" value="000000003000"/>
 		<input type="hidden" name="numpedido" value="0"/>
@@ -42,36 +57,39 @@
 		<input type="hidden" name="fecha" value="<?php echo $str_fecha; ?>"/>
 		<input type="hidden" name="firma" value="<?php echo sha1($stringSha1); ?>"/>
 		<input type="hidden" name="url" value="resultado_reserva.php"/>
+	 </form>
+<?php }?>
+
 
 		<table>
 		 	<tr>
 		 		<td>Fecha: </td> 
 		 		<td>27/10/2012
-		 			<!-- echo $_SESSION["fechaReserva"]; -->
+		 			<!-- echo $_SESSION["startTime"]; -->
 		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td>Hora: </td>
 		 		<td>18:00
-		 			<!--  echo $_SESSION["horaReserva"]; -->
+		 			<!--  echo $_SESSION["startTime"]; -->
 		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td>Fisioterapeuta: </td>
 		 		<td>Pablo
-		 			<!-- echo $_SESSION["fisioReserva"]; -->
+		 			<!-- echo $_SESSION["calendar"]; -->
 		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td>Nombre: </td>
 		 		<td>Cliente
-		 			<!-- echo $_SESSION["nombreReserva"]; -->
+		 			<!-- echo $_SESSION["title"]; -->
 		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td>Descripción: </td>
 		 		<td>Descripción reserva
-		 			<!-- echo $_SESSION["descripcionReserva"]; -->
+		 			<!-- echo $_SESSION["description"]; -->
 		 		</td>
 		 	</tr>
 		 	<tr>
@@ -79,11 +97,11 @@
 		 		<td>General (30,00 €)</td>
 		 	</tr>
 		 	<tr>
-		 		<td><input type="submit" value="Confirmar y Pagar" onclick=""/></td>
+		 		<td><input type="button" value="Confirmar y Pagar" onclick="javascript:document.confirm_date.submit();"/></td>
 		 		<td><input type="button" value="Volver" onclick="reservar_cita.php"/></td>
 		 	</tr>
 		 </table>
- 	</form>
+
  </div>
 </body>
 </html>
