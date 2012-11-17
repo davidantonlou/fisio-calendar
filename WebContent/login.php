@@ -1,12 +1,11 @@
    <?php 
-   		session_start();
-   		
    		include("datos_conexion.php");
     
    		if(isset($_POST['modo']) == 'desconectar')
    			session_destroy();
    	   		
    		if(isset($_POST['login'])){
+   			session_start();
    			session_regenerate_id();
    			$user= $_POST['user'];
    			$pass= $_POST['pass'];
@@ -16,16 +15,18 @@
    				if($ses['pass'] == $pass){
    					session_register("id");
    					session_register("user");
-   					$_SESSION["id"]= $ses["id"];
-   					$_SESSION["user"]= $ses["user"];
+   					$_SESSION['id']= $ses["id"];
+   					$_SESSION['user']= $ses["user"];
    					header('Location: reservar_cita.php');
    				}
    				else{
    					header('Location: login.php');
+   					echo 'Nombre de usuario o contrase&#241;a incorrecta.';
    				}
    			}
    			else{
    				header('Location: login.php');
+   				echo 'Nombre de Usuario o contrase&#241;a incorrecta.';
    			}
    		}
    ?>
