@@ -1,11 +1,12 @@
    <?php 
+   		session_start();
+   		
    		include("datos_conexion.php");
     
    		if(isset($_POST['modo']) == 'desconectar')
    			session_destroy();
    	   		
    		if(isset($_POST['login'])){
-   			session_start();
    			session_regenerate_id();
    			$user= $_POST['user'];
    			$pass= $_POST['pass'];
