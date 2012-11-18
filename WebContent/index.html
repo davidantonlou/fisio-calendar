@@ -201,9 +201,9 @@
     		var startDateTime = date.year+'-'+date.month+'-'+date.day+'T'+hour+':00.000+01:00';
     		var endDateTime = date.year+'-'+date.month+'-'+date.day+'T'+finshHour+':00.000+01:00';
     		var title = document.getElementById("title").value;
-    		addEvent(title,startDateTime,endDateTime)
+    		addEvent(title,startDateTime,endDateTime,date.calendar)
     	}
-    	function addEvent(title, startDateTime, endDateTime)
+    	function addEvent(title, startDateTime, endDateTime,idCalendar)
     	{
     		var resource = {
     			  "summary": title,
@@ -216,7 +216,7 @@
     			  }
     			};
     			var request = gapi.client.calendar.events.insert({
-    			  'calendarId': 'primary',
+    			  'calendarId': idCalendar,
     			  'resource': resource
     			});
     			request.execute(function(resp) {
