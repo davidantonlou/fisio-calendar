@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+ <script>
+ 		function onBody(){
+ 			var timeString = '2012-11-12T22:59:59.000-00:00';
+ 			
+ 		    
+ 		    
+ 			//Create the dateObject
+ 			var dateObject = {};
+ 			dateObject.hour = timeString.split("T")[1].split(":")[0];
+ 			dateObject.minutes = timeString.split("T")[1].split(":")[1];
+ 			dateObject.day = timeString.split("-")[2].split("T")[0];
+ 			dateObject.month = timeString.split("-")[1];
+ 			dateObject.year = timeString.split("-")[0];
+ 			dateObject.summary = "Cita privada";
+ 			
+ 			var arrayChungo = new Array("17:30","18:15","09:30","12:45");
+ 			createSelectWithFreeHours(arrayChungo);
+ 		}
+	    
+		
+		function createSelectWithFreeHours(object)
+    	{
+    		var hoursOfTheDay = new Array("08:45","09:30","10:15","11:00","12:45","13:30","14:15","15:00","16:45","17:30","18:15","19:00","20:45","21:30");
+    		alert(typeof hoursOfTheDay);
+    		var position;
+    		for(var i= 0;i<object.length;i++){
+    			position = hoursOfTheDay.indexOf(object[i]);
+    			if(position != -1) hoursOfTheDay[position] = null;
+    		}
+    		var select = document.getElementById("selectDate");
+    		for(i=0;i<hoursOfTheDay.length;i++){
+    			if(hoursOfTheDay[i] != null)
+    			{
+    				var objOption=document.createElement("option");
+        			objOption.innerHTML = hoursOfTheDay[i];
+        			objOption.value = hoursOfTheDay[i];
+        			select.appendChild(objOption);
+    			}
+    			
+    		}
+    		
+    		
+    	}
+		
+    </script>
+
+
+</head>
+<body onload="onBody();">
+  	
+    
+    
+    
+    
+    	<select id="selectDate"></select>
+    
+    
+    
+    
+</body>
+</html>
