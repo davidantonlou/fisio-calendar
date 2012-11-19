@@ -1,6 +1,6 @@
 /*******************************************************
  * 
- * Librería de funciones para la API de Google Calendar
+ * Libreria de funciones para la API de Google Calendar
  * 
  *******************************************************/
 
@@ -21,18 +21,18 @@ function handleClientLoad() {
 	checkAuth();
 }
 
-// Resultado de la autentificación
+// Resultado de la autentificacion
 function handleAuthResult(authResult) {
 	gapi.client.load('calendar', 'v3', function(){addEvent();});
 }
 
-// Autorización al hacer click
+// Autorizacion al hacer click
 function handleAuthClick(event) {
 	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false},handleAuthResult);
 	return false;
 }
 
-// Añadir un evento al calendario
+// Anadir un evento al calendario
 // ** Date: yyyy-mm-dd
 // ** Time: hh:mm:ss
 // ** TimeZone: Europe/Madrid
@@ -105,8 +105,8 @@ function listEvents(calendarId, iCalUID, startDate, endDate){
 	request.execute(function(resp) {
 	  	console.log(resp);
 	  	
-	  	// TODO: Habría que hacer un método para filtrar el XML que nos devuelven en resp
-	  	//       y mostrar las horas libres en el comboBox de selección de horas
+	  	// TODO: Habria que hacer un metodo para filtrar el XML que nos devuelven en resp
+	  	//       y mostrar las horas libres en el comboBox de seleccion de horas
 	});
 }
 
