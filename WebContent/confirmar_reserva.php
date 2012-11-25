@@ -18,10 +18,10 @@
 		$pedido = @mysql_fetch_assoc($sqlQuery) ;
 		
 		// Preparamos la longitud del número de pedido
-		$num = $pedido["numpedido"];
-		if (strlen($pedido["numpedido"]) < 10){
+		$num = '' . $pedido["numpedido"];
+		if (strlen($pedido["numpedido"]) < 11){
 			for ($i=strlen($pedido["numpedido"]); $i<10; $i++)
-				$num = "0" + $num;
+				$num = '0' . $num;
 		}
 		
 		// Preparamos los datos del pago virtual
