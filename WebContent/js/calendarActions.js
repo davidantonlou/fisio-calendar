@@ -1,6 +1,5 @@
 
 	//Global variables
-    var authorized = false;
     var clientId = '555913871761.apps.googleusercontent.com';
     var apiKey = 'AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI';
     var scopes = 'https://www.googleapis.com/auth/calendar';
@@ -50,15 +49,8 @@
     function loadFreeHours(day,calendar)
 	{
 		deleteOptions("selectDate");
-		if(authorized == true)
-		{
-			var dateObject = transformToDateObejct(day);				
-			gapi.client.load('calendar', 'v3', function(){listCalendar(dateObject);});
-		}else{
-			console.log("Not authorized in google accounts");
-			handleClientLoad();
-			alert("Se ha producido un error permita las ventanas de esta pagina y espere unos segundos");
-		}
+		var dateObject = transformToDateObejct(day);				
+		gapi.client.load('calendar', 'v3', function(){listCalendar(dateObject);});
 	}
     	
     function transformToDateObejct(day)
