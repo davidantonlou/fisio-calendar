@@ -1,10 +1,47 @@
 <?php
+	include("datos_conexion.php");
+	include ("js/sha1.txt");
+	
 	// Si se ha realizado una reserva y se desea mostrar el detalle
 	if (isset($_POST['isReserva'])){		
 		$str_fecha = date("dmyHis");
 	$isAdmin=false;
 	if (isset($_SESSION['user']))
 		$isAdmin=true;
+	
+	if (!$isAdmin){			 
+		// Insertamos el pedido
+		mysql_query("INSERT INTO pedidos (fecha, importe) VALUES (NOW(), 30)");
+		
+		// Obtenemos el número de pedido insertado
+		$sqlQuery=mysql_query("SELECT MAX(numpedido) AS numpedido FROM pedidos");
+		$pedido = @mysql_fetch_assoc($sqlQuery) ;
+		
+		// Preparamos la longitud del número de pedido
+		$num = $pedido["numpedido"];
+		if (strlen($pedido["numpedido"]) < 10){
+			for ($i=strlen($pedido["numpedido"]); $i<10; $i++)
+				$num = "0" + $num;
+		}
+		
+		// Preparamos los datos del pago virtual
+		$cip = "111111111111";
+		$importe = "000000003000";
+		$moneda = "978";
+		$fuc = "229011267";
+		$terminal = "001";
+		$idioma = "0";
+		$numpedido = $num;
+		$url = "http://localhost//Fisiomaquet/WebContent/resultado_reserva.php";
+		
+		$sha = new SHA;
+		$message = $str_fecha.$cip.$importe.$moneda.$numpedido;
+		$digest1 = $sha->hash_string($message);
+		$firma = $sha->hash_to_string( $digest1 );
+		
+		// Fecha + CIP + Importe + Moneda + Numero de Pedido
+		//$stringSha1 = $str_fecha + "" + "" + "978" + "";
+	}
 ?>
 
 <!doctype html>
@@ -28,21 +65,6 @@
     	
 </head>
 <body>
-<?php include ("js/sha1.txt");?> 
-<?
-$cip = "111111111111";
-$importe = "000000003000";
-$moneda = "978";
-$numpedido = "0000000001";
-
-$sha = new SHA;
-$message = $str_fecha.$cip.$importe.$moneda.$numpedido;
-$digest1 = $sha->hash_string($message);
-$firma = $sha->hash_to_string( $digest1 );
-
-	// Fecha + CIP + Importe + Moneda + Numero de Pedido 
-	//$stringSha1 = $str_fecha + "" + "" + "978" + ""; 
-?>
 <div class="background">
 	<h1>Confirmar Reserva</h1>
 	
@@ -57,15 +79,15 @@ $firma = $sha->hash_to_string( $digest1 );
 	}else{
 ?>
 	<form name="confirm_date" method="post" action="https://tpv01.cajarural.com/nuevo_tpv/tpv/jsp/tpvjp_validaComercio.jsp">
-		<input type="hidden" name="importe" value="000000003000"/>
-		<input type="hidden" name="numpedido" value="0000000001"/>
-		<input type="hidden" name="moneda" value="978"/>
-		<input type="hidden" name="fuc" value="229011267"></input>
-		<input type="hidden" name="idioma" value="0"/>
-		<input type="hidden" name="idterminal" value="001"/>
+		<input type="hidden" name="importe" value="<?php echo $importe; ?>"/>
+		<input type="hidden" name="numpedido" value="<?php echo $numpedido; ?>"/>
+		<input type="hidden" name="moneda" value="<?php echo $moneda; ?>"/>
+		<input type="hidden" name="fuc" value="<?php echo $fuc; ?>"></input>
+		<input type="hidden" name="idioma" value="<?php echo $idioma; ?>"/>
+		<input type="hidden" name="idterminal" value="<?php echo $terminal; ?>"/>
 		<input type="hidden" name="fecha" value="<?php echo $str_fecha; ?>"/>
 		<input type="hidden" name="firma" value="<?php echo $firma; ?>"/>
-		<input type="hidden" name="url" value="http://localhost//Fisiomaquet/WebContent/resultado_reserva.php"/>
+		<input type="hidden" name="url" value="<?php echo $url; ?>"/>
 	 </form>
 <?php }?>
 
@@ -73,7 +95,7 @@ $firma = $sha->hash_to_string( $digest1 );
 		<table>
 		 	<tr>
 		 		<td>Fecha: </td> 
-		 		<td>27/10/2012
+		 		<td>27/10/2012 - <?php echo $num; ?>
 		 			<!-- echo $_SESSION["startTime"]; -->
 		 		</td>
 		 	</tr>
