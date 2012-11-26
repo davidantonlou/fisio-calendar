@@ -23,8 +23,29 @@
 
      <script>
 	    $(function() {
-	        $( "#datepicker" ).datepicker($.datepicker.regional['es']);
+	        $( "#datepicker" ).datepicker({ dateFormat: 'dd-mm-yy' });
 	    });	    
+     </script>
+     
+     <script>
+	    function validar() {
+		    // Validaciones antes de enviar el formulario
+		    if (document.getElementById("calendarCombo").value == "0"){
+	        	alert("Debes de seleccionar un fisio de la lista.");
+		    }
+		    else if (document.getElementById("datepicker").value == ""){
+			    alert("Debes de seleccionar una fecha.");
+		    }
+		    else if (document.getElementById("selectDate").value == ""){
+			    alert("Debes de seleccionar una hora.");
+		    }
+		    else if (document.getElementById("title").value == ""){
+			    alert("Debes introducir un nombre para la reserva.");
+		    }
+		    else{
+		    	document.createEvent.submit();
+		    }
+	    };	    
      </script>
      
   	 <script src="js/calendarActions.js"></script>  	 
@@ -59,7 +80,7 @@
 	 			<span class="text">Fecha:</span>
 	 		</td>
 	 		<td>
-		 		<input type="text" id="datepicker" name="datepicker"/> 		 		
+		 		<input type="text" id="datepicker" name="datepicker" readonly="readonly"/> 		 		
 	 		</td>
 	 		
 	 	</tr>
@@ -81,7 +102,7 @@
 	 	</tr>
 	 </table>
 	 <br/><br/>
-	 <a style="margin-left:45%" class="button" onclick="">Reservar</a>
+	 <a style="margin-left:45%" class="button" onclick="javascript:validar();">Reservar</a>
  </form>
  <br/><br/>
  <table>
