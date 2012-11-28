@@ -1,8 +1,7 @@
 
 	//Global variables
-    var clientId = '555913871761.apps.googleusercontent.com';
     var apiKey = 'AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI';
-    var scopes = 'https://www.googleapis.com/auth/calendar';
+
     
     
     //Cambia el los calendarios
@@ -21,43 +20,20 @@
     	deleteOptions("selectDate");
     }
     
-    function handleClientLoad() {
-    	gapi.client.setApiKey(apiKey);
-    	window.setTimeout(checkAuth,1);
-    	checkAuth();
-    }
-
-    function checkAuth() {
-    	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true},
-    	      handleAuthResult);
-    }
-    	
-    function handleAuthClick() {
-      	gapi.auth.authorize(
-      	      {client_id: clientId, scope: scopes, immediate: false},
-      	      handleAuthResult);
-      	return false;
-    }
-
-    	
-    function handleAuthResult(authResult) {
-    	//	gapi.client.load('calendar', 'v3', function(){listCalendar();});
-    	authorized = true; 	  
-    }
-    	
-    	
+    //Carga las horas libres 
     function loadFreeHours(day,calendar)
 	{
 		deleteOptions("selectDate");
 		var dateObject = transformToDateObejct(day);				
-		gapi.client.load('calendar', 'v3', function(){listCalendar(dateObject);});
+		listCalendar(dateObject);
 	}
-    	
+    
+    //Convierte un string de la fecha del select en un objeto de tipo date
     function transformToDateObejct(day)
     {  	
 		var dateObject = {};
-		dateObject.day = day.split("/")[1];
-		dateObject.month = day.split("/")[0];
+		dateObject.day = day.split("/")[0];
+		dateObject.month = day.split("/")[1];
 		dateObject.year = day.split("/")[2];
 		
 		if(document.createEvent.calendar.value == 1) dateObject.calendar = "fisiocalendar@gmail.com";
@@ -67,33 +43,47 @@
 		return dateObject;
     }
     	
-    	
-    	
+  //Lista los eventos del calendario
 	function listCalendar(dayObject)
 	{
-		var request = gapi.client.calendar.events.list({
-		      'calendarId': dayObject.calendar,
+		var requestParameters =
+		{
 		      'timeMax' : dayObject.year+'-'+dayObject.month+'-'+dayObject.day+'T23:59:59.000+01:00',
 		      'timeMin' : dayObject.year+'-'+dayObject.month+'-'+dayObject.day+'T00:00:00.000+01:00',
 		      'timeZone':'Europe/Madrid'
-	    });
-		
-		request.execute(function(resp) {
-			if(resp.items != undefined)
-			{
-			  var arrayOfDates = new Array();
-		      for (var i = 0; i < resp.items.length; i++)
-			  {  		    	  
-		    	 arrayOfDates[i] =  createDateObject(resp.items[i]);  		       
-		      }
-		      createSelectWithFreeHours(arrayOfDates);
-			}else
-			{	
-				var dateFinded = createDateObject(resp);
-				createSelectWithFreeHours(dateFinded);
-			} 
+	    };
 
-		    });
+		var request = $.ajax({
+			  url: 'https://www.googleapis.com/calendar/v3/calendars/'+encodeURIComponent(dayObject.calendar)+'/events?timeMax='+encodeURIComponent(requestParameters.timeMax)+'&timeMin='+encodeURIComponent(requestParameters.timeMin)+'&key='+apiKey,
+			  type: "GET",
+			  beforeSend: function ( xhr ) {xhr.overrideMimeType("application/json"); },
+			});
+
+			request.done(
+					function(resp) {
+						if(resp.items != undefined)
+						{
+						  var arrayOfDates = new Array();
+					      for (var i = 0; i < resp.items.length; i++)
+						  {  		    	  
+					    	 arrayOfDates[i] =  createDateObject(resp.items[i]);  		       
+					      }
+					      createSelectWithFreeHours(arrayOfDates);
+						}else
+						{	
+							var dateFinded = createDateObject(resp);
+							createSelectWithFreeHours(dateFinded);
+						} 
+
+					    }		
+			);
+
+			request.fail(function(jqXHR, textStatus) {
+			  console.log( "Request failed: " + textStatus );
+			  alert("Ha ocurrido un error vuelva a intentarlo de nuevo");
+			});
+		
+		
 		  
 	}
     	
@@ -154,40 +144,6 @@
 		return hour.split(":")[0]+":"+newMinutesInt;
 	}
     	
-	function createReserve()
-	{
-		var date = transformToDateObejct(document.getElementById("datepicker").value);
-		var hour = getSelectedOption("selectDate");
-		var finshHour = getFinshHour(hour);
-		
-		var startDateTime = date.year+'-'+date.month+'-'+date.day+'T'+hour+':00.000+01:00';
-		var endDateTime = date.year+'-'+date.month+'-'+date.day+'T'+finshHour+':00.000+01:00';
-		var title = document.getElementById("title").value;
-		addEvent(title,startDateTime,endDateTime,date.calendar);
-	}
-	
-	function addEvent(title, startDateTime, endDateTime,idCalendar)
-	{
-		var resource = {
-			  "summary": title,
-			  "location": "Somewhere",
-			  "start": {
-			    "dateTime": startDateTime
-			  },
-			  "end": {
-			    "dateTime": endDateTime
-			  }
-			};
-			var request = gapi.client.calendar.events.insert({
-			  'calendarId': idCalendar,
-			  'resource': resource
-			});
-			request.execute(function(resp) {
-			  console.log(resp);
-			  changeCalendar(document.createEvent.calendar.value);
-			});
-	}
-	
 	function getSelectedOption(id)
 	{
 		var select = document.getElementById(id);
