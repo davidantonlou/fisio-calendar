@@ -20,9 +20,9 @@
     
      <script>
 	    $(function() {
-	    	$( "#datepicker" ).datepicker($.datepicker.regional['es']);
+	    	 $( "#datepicker" ).datepicker($.datepicker.regional['es']);
 	    	 $( "#datepicker" ).datepicker({ dateFormat: "dd/mm/yy" });
-		     $( "#datepicker" ).datepicker("option", "minDate", new Date(2012, 1 - 1, 1) );
+	    	 $( "#datepicker" ).datepicker("option", "minDate", new Date());
 	         
 	    });	    
      </script>
