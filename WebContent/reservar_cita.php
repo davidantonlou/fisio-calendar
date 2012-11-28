@@ -17,13 +17,13 @@
     <link rel="stylesheet" href="css/calendarStyle.css"> 
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-    <script src="http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-es.js"></script>
-    <script src="js/users_calendars.js"></script>
-    <script src="js/calendar.js"></script>
-
+    
      <script>
 	    $(function() {
-	        $( "#datepicker" ).datepicker({ dateFormat: 'dd-mm-yy' });
+	    	$( "#datepicker" ).datepicker($.datepicker.regional['es']);
+	    	 $( "#datepicker" ).datepicker({ dateFormat: "dd/mm/yy" });
+		     $( "#datepicker" ).datepicker("option", "minDate", new Date(2012, 1 - 1, 1) );
+	         
 	    });	    
      </script>
      
@@ -49,8 +49,6 @@
      </script>
      
   	 <script src="js/calendarActions.js"></script>  	 
-     <script src="https://apis.google.com/js/client.js"></script>
-     
 </head>
 <body>
 <div class="background">
@@ -80,7 +78,7 @@
 	 			<span class="text">Fecha:</span>
 	 		</td>
 	 		<td>
-		 		<input type="text" id="datepicker" name="datepicker" readonly="readonly"/> 		 		
+		 		<input type="text" id="datepicker" name="datepicker" readonly="readonly"/>		 		
 	 		</td>
 	 		
 	 	</tr>

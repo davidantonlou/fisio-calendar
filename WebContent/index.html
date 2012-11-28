@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-    <script src="http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-es.js"></script>
     <!-- <script src="js/users_calendars.js"></script>
     <script src="js/calendar.js"></script> -->
 
@@ -29,14 +28,17 @@
  	<script>
  		
 	    $(function() {
-	        $( "#datepicker" ).datepicker($.datepicker.regional['es']);
+	        $( "#datepicker" ).datepicker({ dateFormat: "dd/mm/yy" });
+	        $( "#datepicker" ).datepicker("option", "minDate", new Date(2012, 1 - 1, 1) );
+	        $( "#datepicker" ).datepicker( $.datepicker.regional[ "fr" ] );
 	    });
  		
  	</script>
     	
     <script src="js/calendarActions.js"></script>
-  
+  <!-- 
      <script src="https://apis.google.com/js/client.js"></script>
+	 -->
 </head>
 <body onLoad="javascript:handleAuthClick();">
 <div class="background">
