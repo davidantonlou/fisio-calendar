@@ -33,6 +33,9 @@
        
                                                                          
         if ($isAdmin || $compra == "si"){ // El pago se ha realizado correctamente
+        	// Actualizamos el número de pedido y lo ponemos como pagado
+        	mysql_query("UPDATE pedidos SET pagado='true' WHERE numpedido = ". $numpedido ."");
+        	
                 // TODO: Realizar inserciÃ³n en el calendario!!!
                 // TODO: Enviar mail al fisio
                 // TODO: Mostrar pantalla de okey
