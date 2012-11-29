@@ -2,21 +2,40 @@
 	include("datos_conexion.php");
 	include ("js/sha1.txt");
 	
+	// Verificamos si ya estaba realizada la reserva
+	$sqlQuery=mysql_query("SELECT numpedido FROM pedidos WHERE fecha = '". $_POST["datepicker"] ."' AND hora = '". $_POST["selectDate"] ."' AND fisio = '". $_POST["calendarCombo"] ."' AND pagado = '1'");
+	$pedido = @mysql_fetch_assoc($sqlQuery);
+		
 	// Si se ha realizado una reserva y se desea mostrar el detalle
-	if (isset($_POST['isReserva'])){		
+	if ($pedido["numpedido"] != null || !isset($_POST['isReserva'])){		
 		$str_fecha = date("dmyHis");
-	$isAdmin=false;
-	if (isset($_SESSION['user']))
-		$isAdmin=true;
-	
-	if (!$isAdmin){			 
-		// Insertamos el pedido
-		mysql_query("INSERT INTO pedidos (fecha, importe) VALUES (NOW(), 30)");
+		
 		
 		// Obtenemos el número de pedido insertado
 		$sqlQuery=mysql_query("SELECT MAX(numpedido) AS numpedido FROM pedidos");
-		$pedido = @mysql_fetch_assoc($sqlQuery) ;
+		$pedido = @mysql_fetch_assoc($sqlQuery);
 		
+		// Insertamos el pedido en base de datos
+		$fecha = $_POST["datepicker"];
+		$hora = $_POST["selectDate"];
+		$pagado = false;
+		$fisio = $_POST["calendarCombo"];
+		$numpedido = $pedido["numpedido"] + 1;
+		mysql_query("INSERT INTO pedidos (numpedido, fecha, hora, pagado, fisio) VALUES (". $numpedido .", '". $fecha ."', '$hora','". $pagado ."', '". $fisio ."')");
+		
+		
+		// Guardamos en sesión la información de la reserva
+		$_SESSION["startDate"] = $_POST["datepicker"];
+		$_SESSION["startTime"] = $_POST["selectDate"];
+		$_SESSION["calendar"] = $_POST["calendarCombo"];
+		$_SESSION["title"] = $_POST["title"];
+		$_SESSION["description"] = $_POST["description"];
+		
+		$isAdmin=false;
+		if (isset($_SESSION['user']))
+			$isAdmin=true;
+	
+	if (!$isAdmin){			 		
 		// Preparamos la longitud del número de pedido
 		$num = '' . $pedido["numpedido"];
 		if (strlen($pedido["numpedido"]) < 11){
@@ -32,7 +51,7 @@
 		$terminal = "001";
 		$idioma = "0";
 		$numpedido = $num;
-		$url = "http://localhost//Fisiomaquet/WebContent/resultado_reserva.php";
+		$url = "http://localhost/FisioMarket/WebContent/resultado_reserva.php";
 		
 		$sha = new SHA;
 		$message = $str_fecha.$cip.$importe.$moneda.$numpedido;
@@ -66,7 +85,11 @@
 </head>
 <body>
 <div class="background">
-	<h1>Confirmar Reserva</h1>
+<?php if ($isAdmin){?>
+	<a class="button" href="javascript: location.href='login.php?modo=desconectar';" style="margin-left: 90%">Desconectar</a>
+<?php }?>
+
+<h1>Confirmar Reserva</h1>
 	
 <?php 
 	if ($isAdmin){
@@ -95,32 +118,27 @@
 		<table>
 		 	<tr>
 		 		<td>Fecha: </td> 
-		 		<td>27/10/2012 - <?php echo $num; ?>
-		 			<!-- echo $_SESSION["startTime"]; -->
+		 		<td><?php echo $_SESSION["startDate"]; ?>
 		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td>Hora: </td>
-		 		<td>18:00
-		 			<!--  echo $_SESSION["startTime"]; -->
+		 		<td><?php echo $_SESSION["startTime"]; ?>
 		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td>Fisioterapeuta: </td>
-		 		<td>Pablo
-		 			<!-- echo $_SESSION["calendar"]; -->
+		 		<td><?php echo $_SESSION["calendar"]; ?>
 		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td>Nombre: </td>
-		 		<td>Cliente
-		 			<!-- echo $_SESSION["title"]; -->
+		 		<td><?php echo $_SESSION["title"]; ?>
 		 		</td>
 		 	</tr>
 		 	<tr>
 		 		<td>Descripci&oacute;n: </td>
-		 		<td>Descripci&oacute;n reserva
-		 			<!-- echo $_SESSION["description"]; -->
+		 		<td><?php echo $_SESSION["description"]; ?>
 		 		</td>
 		 	</tr>
 		 	<tr>
@@ -128,8 +146,13 @@
 		 		<td>General (30,00 &euro;)</td>
 		 	</tr>
 		 	<tr>
+		 	<?php if ($isAdmin){ ?>
+		 		<td><input type="button" value="Confirmar" onclick="javascript:document.confirm_date_final.submit();"/></td>
+		 	<?php }else{?>
 		 		<td><input type="button" value="Confirmar y Pagar" onclick="javascript:document.confirm_date.submit();"/></td>
-		 		<td><input type="button" value="Volver" onclick="reservar_cita.php"/></td>
+		 	<?php }?>
+		 	
+		 		<td><input type="button" value="Volver" onclick="javascript:history.back();"/></td>
 		 	</tr>
 		 </table>
 

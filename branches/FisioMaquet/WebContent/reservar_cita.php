@@ -101,49 +101,6 @@
 	 	</tr>
 	 </table>
 	 <br/><br/>
-
-<?php 
-
-//Insertamos una cita mediante Zend
-
-	$path = '/Zend/library';
-	$oldPath = set_include_path(get_include_path() . PATH_SEPARATOR . $path);
-	require_once 'Zend/Loader.php';
-	Zend_Loader::loadClass('Zend_Gdata');
-	Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
-	Zend_Loader::loadClass('Zend_Gdata_Calendar');
-	// User whose calendars you want to access
-	$user = 'fisiocalendar@gmail.com';
-	$pass = 'fisiofisio';
-	$serviceName = Zend_Gdata_Calendar::AUTH_SERVICE_NAME; // predefined service name for calendar
-	$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $serviceName);
-	$service = new Zend_Gdata_Calendar($client);
-
-
-	
-	$event= $service->newEventEntry();
-	
-	// Create a new title instance and set it in the event
-	$event->title = $service->newTitle("Some Event");
-	// Where attribute can have multiple values and hence passing an array of where objects
-	$event->where = array($service->newWhere("Nagpur, India"));
-	$event->content = $service->newContent("Some event content.");
-	
-	// Create an object of When and set start and end datetime for the event
-	//$when = $service->newWhen();
-	// Set start and end times in RFC3339 (http://www.ietf.org/rfc/rfc3339.txt)
-	//$when->startTime = "2012-11-19T16:30:00.000+05:30"; // 8th July 2010, 4:30 pm (+5:30 GMT)
-	//$when->endTime = "2012-11-19T17:30:00.000+05:30"; // 8th July 2010, 5:30 pm (+5:30 GMT)
-	// Set the when attribute for the event
-	//$event->when = array($when);
-	
-	// Create the event on google server
-	//$newEvent = $service->insertEvent($event);
-	// URI of the new event which can be saved locally for later use
-	//$eventUri = $newEvent->id->text;
-	
-
-?>
 	 
 	 <a style="margin-left:45%" class="button" onclick="javascript:validar();">Reservar</a>
  </form>
