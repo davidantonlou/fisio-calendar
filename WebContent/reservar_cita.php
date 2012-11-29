@@ -19,8 +19,8 @@
     <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
     
      <script>
-	    $(function() {
-	    	 $( "#datepicker" ).datepicker($.datepicker.regional['es']);
+	    $(function() 
+	    {
 	    	 $( "#datepicker" ).datepicker({ dateFormat: "dd/mm/yy" });
 	    	 $( "#datepicker" ).datepicker("option", "minDate", new Date());
 	         
@@ -66,7 +66,7 @@
 	 			<span class="text">Seleccione doctor :</span>
 	 		</td>
 	 		<td>
-	 			<select id="calendarCombo" onchange="changeCalendar(this.value);">
+	 			<select id="calendarCombo" name="calendarCombo" onchange="changeCalendar(this.value);">
 	 				<option selected="selected" value="0">-- Selecciona un Fisio</option>
 	 				<option value="1">Pablo</option>
 	 				<option value="2">Jose</option>
@@ -79,7 +79,7 @@
 	 			<span class="text">Fecha:</span>
 	 		</td>
 	 		<td>
-		 		<input type="text" id="datepicker" name="datepicker" onchange="loadFreeHours(this.value)" readonly="readonly"/>		 		
+		 		<input type="text" id="datepicker" name="datepicker" onchange="loadFreeHours(this.value)" disabled="disabled"  readony="readonly"/>		 		
 	 		</td>
 	 		
 	 	</tr>
