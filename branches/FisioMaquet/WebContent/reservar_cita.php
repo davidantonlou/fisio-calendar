@@ -78,7 +78,7 @@
 	 			<span class="text">Fecha:</span>
 	 		</td>
 	 		<td>
-		 		<input type="text" id="datepicker" name="datepicker" readonly="readonly"/>		 		
+		 		<input type="text" id="datepicker" name="datepicker" onchange="loadFreeHours(this.value)" readonly="readonly"/>		 		
 	 		</td>
 	 		
 	 	</tr>
