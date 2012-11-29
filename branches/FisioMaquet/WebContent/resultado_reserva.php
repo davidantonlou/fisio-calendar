@@ -12,11 +12,11 @@
        
         if (!$isAdmin){
                 // Recogemos el resultado del pago
-                $compra = $_POST["compra"];       // compra ->   si / no
-                $moneda = $_POST["moneda"];       // moneda ->   978 Euros
-                $numpedido = $_POST["numpedido"]; // numpedido -> Campo numérico de 4 a 12 posiciones que indica el número del pedido de la tienda
-                $fecha = $_POST["fecha"];         // fecha -> AAMMDDhhmmss
-                $firma = $_POST["firma"];         // firma -> Campo de 40 posiciones alfanuméricas.
+                $compra = $_GET["compra"];       // compra ->   si / no
+                $moneda = $_GET["moneda"];       // moneda ->   978 Euros
+                $numpedido = $_GET["numpedido"]; // numpedido -> Campo numérico de 4 a 12 posiciones que indica el número del pedido de la tienda
+                $fecha = $_GET["fecha"];         // fecha -> AAMMDDhhmmss
+                $firma = $_GET["firma"];         // firma -> Campo de 40 posiciones alfanuméricas.
                                                   //          si el campo compra devuelto vale si
                                                   //          cadena = 0+CIP+numpedido+importe+fecha;
                                                   //          y si el campo compra devuelto vale no
