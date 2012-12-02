@@ -2,6 +2,12 @@
 	include("datos_conexion.php");
 	include ("js/sha1.txt");
 	
+	session_start();
+	
+	$isAdmin=false;
+	if (isset($_SESSION['user']))
+		$isAdmin=true;
+	
 	// Verificamos si ya estaba realizada la reserva
 	$sqlQuery=mysql_query("SELECT numpedido FROM pedidos WHERE fecha = '". $_POST["datepicker"] ."' AND hora = '". $_POST["selectDate"] ."' AND fisio = '". $_POST["calendarCombo"] ."' AND pagado = '1'");
 	$pedido = @mysql_fetch_assoc($sqlQuery);
@@ -30,10 +36,6 @@
 		$_SESSION["calendar"] = $_POST["calendarCombo"];
 		$_SESSION["title"] = $_POST["title"];
 		$_SESSION["description"] = $_POST["description"];
-		
-		$isAdmin=false;
-		if (isset($_SESSION['user']))
-			$isAdmin=true;
 	
 	if (!$isAdmin){			 		
 		// Preparamos la longitud del número de pedido
@@ -69,7 +71,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Fisioterapia Valdespartera</title>
-
+	<link rel="stylesheet" href="css/calendarStyle.css"> 
     <style type="text/css">
  		div.background{
  			background-image:url('http://www.fisioterapiavaldespartera.com/sites/all/themes/danland/images/fondo-content.jpg');
