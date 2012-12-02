@@ -14,7 +14,7 @@
    			$b_user=mysql_query("SELECT * FROM usuarios WHERE user='".$user."'");
    			$ses = @mysql_fetch_assoc($b_user) ;
    			if(@mysql_num_rows($b_user)){
-   				if($ses['pass'] == $pass){
+   				if($ses['pass'] == sha1($pass)){
    					session_register("id");
    					session_register("user");
    					$_SESSION['id']= $ses["id"];
@@ -56,16 +56,23 @@
     
     </head>
     <body>
-    <h2>Administraci&#243;n Fisioterapia Valdespartera</h2>
+    <h1 class="title">Administraci&#243;n Fisioterapia Valdespartera</h1>
     <div padding-left="20px"  class="background">
         <form name="login_user" action="" method="post" >
-            <td><label>Usuario:</label></td>
-            <input type='text' id='user' name='user'/><br /><br />
-            <td><label>Contrase&#241;a:</label></td>
-            <input type="password" id='pass' name='pass' /><br /><br />
+        	<table>
+        	<tr>
+            <td><span class="text">Usuario:</span></td>
+            <td><input type='text' id='user' name='user'/></td>
+            </tr>
+            <tr>
+            <td><span class="text">Contrase&#241;a:</span></td>
+           	<td> <input type="password" id='pass' name='pass' /></td>
+           	</tr>
+        	</table>
+            <a style="margin-left:45%" class="button" onclick="javascript:document.login_user.submit();">Entrar</a>
+            <a style="margin-left:45%" class="button" onclick="javascript:document.login_user.user='';document.login_user.pass='';">Limpiar</a>
+          
            
-            <input type="submit" name="login" style="width:100px;" tabindex="6" value="Entrar" />
-            <input type="reset" name="Limpiar" style="width:100px;" tabindex="6" value="Limpiar" />
         </form>
     </div>
     </body>
