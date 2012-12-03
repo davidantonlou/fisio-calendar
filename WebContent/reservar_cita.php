@@ -4,6 +4,8 @@
 	$isAdmin=false;
 	if (isset($_SESSION['user']))
 		$isAdmin=true;
+	
+	$ini_array = parse_ini_file("config.ini");
 
 ?>
 
@@ -18,6 +20,26 @@
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
     <script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
+    
+    <script>
+	    function changeCalendar(value)
+	    {
+	    	var listado=new Array();
+	    	<?
+	    		for($i=0; $i<sizeof($ini_array['calendarList']); $i++){
+	    			echo "listado[".$i."]='".$ini_array['calendarList'][$i]."';\n";
+	    		}			
+	    	?>
+	        document.getElementById("doctorCalendar").src=listado[value];
+	            	
+	    	//Restablecemos los campos
+	    	if(value!=0)document.getElementById("datepicker").disabled = false;  
+	    	document.getElementById("datepicker").value = '';
+	    	document.getElementById("selectDate").disabled = true;
+	    	deleteOptions("selectDate");
+	    }
+    </script>
+    
     
     <!-- Configuramos el calendario -->
      <script>
@@ -80,10 +102,11 @@
 	 		</td>
 	 		<td>
 	 			<select id="calendarCombo" name="calendarCombo" onchange="changeCalendar(this.value);"  class="required">
-	 				<option selected="selected" value="0">-- Selecciona un Fisio</option>
-	 				<option value="1">Pablo</option>
-	 				<option value="2">Jose</option>
-	 				<option value="3">Maria</option>
+	 				<?php 
+	 					for ($i=0; $i<sizeof($ini_array['namesList']); $i++){
+	 						echo '<option value="'. $i .'">'. $ini_array["namesList"][$i] .'</option>';
+	 					}
+	 				?>
 	 			</select>
 	 		</td>
 	 	</tr>
