@@ -38,6 +38,7 @@
     <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Administraci&#243;n</title>
+    <link rel="stylesheet" href="css/calendarStyle.css"> 
     
     <style type="text/css">
     	div.ui-datepicker{
@@ -59,7 +60,8 @@
     <h1 class="title">Administraci&#243;n Fisioterapia Valdespartera</h1>
     <div padding-left="20px"  class="background">
         <form name="login_user" action="" method="post" >
-        	<table>
+        
+        	<table style="margin-left:30%; margin-right:60%;">
         	<tr>
             <td><span class="text">Usuario:</span></td>
             <td><input type='text' id='user' name='user'/></td>
@@ -68,10 +70,18 @@
             <td><span class="text">Contrase&#241;a:</span></td>
            	<td> <input type="password" id='pass' name='pass' /></td>
            	</tr>
+           	<tr>
+           		<td><br/>§</td>
+           	</tr>
+           	<tr>
+           		<td>
+           		 <a style="margin-left:100%" class="button" onclick="javascript:document.login_user.submit();">Entrar</a>
+           		</td>
+           		<td>
+           		 <a style="margin-left:50%" class="button" onclick="javascript:document.login_user.user='';document.login_user.pass='';">Limpiar</a>
+           		</td>
+           	</tr>
         	</table>
-            <a style="margin-left:45%" class="button" onclick="javascript:document.login_user.submit();">Entrar</a>
-            <a style="margin-left:45%" class="button" onclick="javascript:document.login_user.user='';document.login_user.pass='';">Limpiar</a>
-          
            
         </form>
     </div>
