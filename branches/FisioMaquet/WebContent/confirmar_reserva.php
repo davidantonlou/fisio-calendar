@@ -23,7 +23,7 @@
 		
 		// Insertamos el pedido en base de datos
 		$fecha = $_POST["datepicker"];
-		$hora = $_POST["selectDate"];
+		$hora = $_POST["hour"];
 		$pagado = false;
 		$fisio = $_POST["calendarCombo"];
 		$numpedido = $pedido["numpedido"] + 1;
@@ -32,7 +32,7 @@
 		
 		// Guardamos en sesión la información de la reserva
 		$_SESSION["startDate"] = $_POST["datepicker"];
-		$_SESSION["startTime"] = $_POST["selectDate"];
+		$_SESSION["startTime"] = $_POST["hour"];
 		$_SESSION["calendar"] = $_POST["calendarCombo"];
 		$_SESSION["title"] = $_POST["title"];
 		$_SESSION["description"] = $_POST["description"];
@@ -53,7 +53,7 @@
 		$terminal = "001";
 		$idioma = "0";
 		$numpedido = $num;
-		$url = "http://localhost/FisioMarket/WebContent/resultado_reserva.php";
+		$url = "http://localhost:80/FisioMaquet/WebContent/resultado_reserva.php";
 		
 		$sha = new SHA;
 		$message = $str_fecha.$cip.$importe.$moneda.$numpedido;
