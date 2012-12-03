@@ -22,7 +22,7 @@
                                                   //          y si el campo compra devuelto vale no
                                                   //          cadena = 1+CIP+numpedido+importe+fecha;
         }
-                                                                         
+                                                             
         // Recogemos de sesión el detalle de la cita
         $title = $_SESSION["title"];
         $description = $_SESSION["description"];
@@ -30,7 +30,7 @@
         $endTime = $_SESSION["endTime"];
         $calendar = $_SESSION["calendar"];
         $private = $_SESSION["private"];
-       
+        $eventId = $_SESSION["eventId"];
                                                                          
         if ($isAdmin || $compra == "si"){ // El pago se ha realizado correctamente
         	// Actualizamos el n�mero de pedido y lo ponemos como pagado
@@ -53,16 +53,34 @@
 	        	$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $serviceName);
 	        	$service = new Zend_Gdata_Calendar($client);
 	        	
+	        	$gdataCal = new Zend_Gdata_Calendar($client);
+	        	if ($eventOld = getEvent($client, $eventId)) {
+	        		$eventOld->title = $gdataCal->newTitle($title);
+	        		$eventOld->visibility  = 'private';
+	        		try {
+	        			$eventOld->save();
+	        		} catch (Zend_Gdata_App_Exception $e) {
+	        			var_dump($e);
+	        			return null;
+	        		}
+	        		$eventNew = getEvent($client, $eventId);
+	        		
+	        		echo "<script>alert('Se ha reservado correctamente')</script>";
+	        		
+	        		session_unset();
+	        		session_destroy();
+	        		
+	        	} else {
+	        		echo "<script>alert('Ha ocurrido un error insertando en el calebdarui ')</script>";
+                	session_unset();
+                	session_destroy();
+	        	}
 	        	
 	        	
-	        	
-	        	
-                session_unset();
-                session_destroy();
         }
         else{ // Ha ocurrido un erro al realizar el pago
                 // TODO: Mostrar pantalla de error
-                 
+                 echo "<script>alert('Ha ocurrido un error reservado ')</script>";
                 session_unset();
                 session_destroy();
         }
