@@ -14,7 +14,7 @@
    			$b_user=mysql_query("SELECT * FROM usuarios WHERE user='".$user."'");
    			$ses = @mysql_fetch_assoc($b_user) ;
    			if(@mysql_num_rows($b_user)){
-   				if($ses['pass'] == sha1($pass)){
+   				if($ses['pass'] == sha($pass)){
    					session_register("id");
    					session_register("user");
    					$_SESSION['id']= $ses["id"];

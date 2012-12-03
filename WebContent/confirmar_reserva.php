@@ -36,7 +36,7 @@
 		$_SESSION["calendar"] = $_POST["calendarCombo"];
 		$_SESSION["title"] = $_POST["title"];
 		$_SESSION["description"] = $_POST["description"];
-	
+		$_SESSION["eventId"] = $_POST["eventId"];
 	if (!$isAdmin){			 		
 		// Preparamos la longitud del número de pedido
 		$num = '' . $pedido["numpedido"];
