@@ -39,17 +39,30 @@
                 // TODO: Realizar inserción en el calendario!!!
                 // TODO: Enviar mail al fisio
                 // TODO: Mostrar pantalla de okey
-                <script>
-                	alert("La reserva se ha realizado correctamente");
-                </script>
+	        	
+        		$path = '/Zend/library';
+	        	$oldPath = set_include_path(get_include_path() . PATH_SEPARATOR . $path);
+	        	require_once 'Zend/Loader.php';
+	        	Zend_Loader::loadClass('Zend_Gdata');
+	        	Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
+	        	Zend_Loader::loadClass('Zend_Gdata_Calendar');
+	        	// User whose calendars you want to access
+	        	$user = 'fisiocalendar@gmail.com';
+	        	$pass = 'fisiofisio';
+	        	$serviceName = Zend_Gdata_Calendar::AUTH_SERVICE_NAME; // predefined service name for calendar
+	        	$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $serviceName);
+	        	$service = new Zend_Gdata_Calendar($client);
+	        	
+	        	
+	        	
+	        	
+	        	
                 session_unset();
                 session_destroy();
         }
         else{ // Ha ocurrido un erro al realizar el pago
                 // TODO: Mostrar pantalla de error
-                 <script>
-                	alert("Ha habido un error al procesar su pago, por favor vuelva a intentarlo");
-                </script>
+                 
                 session_unset();
                 session_destroy();
         }

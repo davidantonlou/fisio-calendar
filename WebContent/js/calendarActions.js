@@ -89,28 +89,21 @@
     	
 	function createSelectWithFreeHours(object)
 	{ 		
-    	var hoursOfTheDay = new Array();
     	var objectDate;
+    	var select = document.getElementById("selectDate");
     	for(var i= 0;i<object.length;i++)
     	{
     		objectDate = object[i];
-    		if(objectDate.summary != undefined && objectDate.summary != null && objectDate.summary.indexOf("LIBRE") != -1) 
-    			hoursOfTheDay.push(objectDate.hour+":"+objectDate.minutes);
-    	}
-    	
-    	var select = document.getElementById("selectDate");
-    	
-    	for(i=0;i<hoursOfTheDay.length;i++)
-    	{
-    		if(hoursOfTheDay[i] != null)
+    		if(objectDate.summary != undefined && objectDate.summary != null && objectDate.summary.indexOf("LIBRE") != -1)
     		{
     			var objOption=document.createElement("option");
-        		objOption.innerHTML = hoursOfTheDay[i];
-        		objOption.value = hoursOfTheDay[i];
+        		objOption.innerHTML = objectDate.hour+":"+objectDate.minutes;
+        		objOption.value = objectDate.id;
         		select.appendChild(objOption);
     		}
-    			
+
     	}
+
 		select.disabled = false;
 	}
     	
@@ -129,9 +122,14 @@
 		dateObject.month = timeString.split("-")[1];
 		dateObject.year = timeString.split("-")[0];
 		if(resp.result != undefined)
+		{
 			dateObject.summary = resp.result.summary;
-		else
+			dateObject.id = rep.result.id;
+		}else{
 			dateObject.summary = resp.summary;
+			dateObject.id = resp.id;
+		}
+			
 		
 		return dateObject;
 	}
