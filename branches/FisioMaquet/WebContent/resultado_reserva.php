@@ -52,6 +52,7 @@
 	        	
 	        	$gdataCal = new Zend_Gdata_Calendar($client);
 	        	
+	        	$query = $service->newEventQuery();
 	        	$query->setEvent($eventId);
 	        	if ($eventOld = $service->getCalendarEventEntry($query)) {
 	        		$eventOld->title = $gdataCal->newTitle($title);
