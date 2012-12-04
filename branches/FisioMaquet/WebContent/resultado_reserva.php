@@ -1,11 +1,6 @@
-<!--
-        Realizar inserci贸n de la cita (JOSE)
-        Mostrar que todo ha ido OK/ERROR (JOSE)
-        Enviar mail al fisio administrador (DAVID)
-        Borrar datos de sesi贸n (DAVID)          
--->
-
 <?php
+		session_start();
+		
         $isAdmin=false;
         if (isset($_SESSION['user']))
                 $isAdmin=true;
@@ -26,23 +21,25 @@
         // Recogemos de sesi贸n el detalle de la cita
         $title = $_SESSION["title"];
         $description = $_SESSION["description"];
-        $startTime = $_SESSION["startTime"];
-        $endTime = $_SESSION["endTime"];
-        $calendar = $_SESSION["calendar"];
-        $private = $_SESSION["private"];
+//         $startTime = $_SESSION["startTime"];
+//         $endTime = $_SESSION["endTime"];
+//         $calendar = $_SESSION["calendar"];
+//         $private = $_SESSION["private"];
         $eventId = $_SESSION["eventId"];
                                                                          
         if ($isAdmin || $compra == "si"){ // El pago se ha realizado correctamente
-        	// Actualizamos el n鷐ero de pedido y lo ponemos como pagado
-        	mysql_query("UPDATE pedidos SET pagado='true' WHERE numpedido = ". $numpedido ."");
+        	if (!$isAdmin){
+	        	// Actualizamos el n鷐ero de pedido y lo ponemos como pagado
+	        	mysql_query("UPDATE pedidos SET pagado='true' WHERE numpedido = ". $numpedido ."");
+        	}
         	
                 // TODO: Realizar inserci贸n en el calendario!!!
                 // TODO: Enviar mail al fisio
                 // TODO: Mostrar pantalla de okey
 	        	
-        		$path = '/Zend/library';
+        		$path = 'C:\Users\David\localhost\htdocs\FisioMarket\WebContent\Zend\library';
 	        	$oldPath = set_include_path(get_include_path() . PATH_SEPARATOR . $path);
-	        	require_once 'Zend/Loader.php';
+	        	require_once $path . '\Zend\Loader.php';
 	        	Zend_Loader::loadClass('Zend_Gdata');
 	        	Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
 	        	Zend_Loader::loadClass('Zend_Gdata_Calendar');
@@ -54,7 +51,9 @@
 	        	$service = new Zend_Gdata_Calendar($client);
 	        	
 	        	$gdataCal = new Zend_Gdata_Calendar($client);
-	        	if ($eventOld = getEvent($client, $eventId)) {
+	        	
+	        	$query->setEvent($eventId);
+	        	if ($eventOld = $service->getCalendarEventEntry($query)) {
 	        		$eventOld->title = $gdataCal->newTitle($title);
 	        		$eventOld->visibility  = 'private';
 	        		try {
