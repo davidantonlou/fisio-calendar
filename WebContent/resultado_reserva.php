@@ -37,9 +37,9 @@
                 // TODO: Enviar mail al fisio
                 // TODO: Mostrar pantalla de okey
 	        	
-        		$path = 'C:\Users\David\localhost\htdocs\FisioMarket\WebContent\Zend\library';
+        		$path = '/Zend/library';
 	        	$oldPath = set_include_path(get_include_path() . PATH_SEPARATOR . $path);
-	        	require_once $path . '\Zend\Loader.php';
+	        	require_once 'Zend/Loader.php';
 	        	Zend_Loader::loadClass('Zend_Gdata');
 	        	Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
 	        	Zend_Loader::loadClass('Zend_Gdata_Calendar');
