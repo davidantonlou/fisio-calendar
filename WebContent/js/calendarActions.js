@@ -91,27 +91,31 @@
     	
 	function createDateObject(resp)
 	{
-		var timeString;
-		if(resp.result != undefined)
-			timeString = resp.result.start.dateTime;
-		else
-			timeString = resp.start.dateTime;
-		//Create the dateObject
+		var timeString = null;
 		var dateObject = {};
-		dateObject.hour = timeString.split("T")[1].split(":")[0];
-		dateObject.minutes = timeString.split("T")[1].split(":")[1];
-		dateObject.day = timeString.split("-")[2].split("T")[0];
-		dateObject.month = timeString.split("-")[1];
-		dateObject.year = timeString.split("-")[0];
-		if(resp.result != undefined)
+		if(resp.status != "cancelled")
 		{
-			dateObject.summary = resp.result.summary;
-			dateObject.id = rep.result.id;
-		}else{
-			dateObject.summary = resp.summary;
-			dateObject.id = resp.id;
-		}
+			if(resp.result != undefined )
+				timeString = resp.result.start.dateTime;
+			else
+				timeString = resp.start.dateTime;
+			//Create the dateObject
 			
+				dateObject.hour = timeString.split("T")[1].split(":")[0];
+				dateObject.minutes = timeString.split("T")[1].split(":")[1];
+				dateObject.day = timeString.split("-")[2].split("T")[0];
+				dateObject.month = timeString.split("-")[1];
+				dateObject.year = timeString.split("-")[0];
+				if(resp.result != undefined)
+				{
+					dateObject.summary = resp.result.summary;
+					dateObject.id = rep.result.id;
+				}else{
+					dateObject.summary = resp.summary;
+					dateObject.id = resp.id;
+				}
+		}
+	
 		
 		return dateObject;
 	}

@@ -27,7 +27,8 @@
 //         $calendar = $_SESSION["calendar"];
 //         $private = $_SESSION["private"];
         $eventId = $_SESSION["eventId"];
-                                                                         
+		$calendar = $_SESSION["calendar"];
+        
         if ($isAdmin || $compra == "si"){ // El pago se ha realizado correctamente
         	if (!$isAdmin){
 	        	// Actualizamos el número de pedido y lo ponemos como pagado
@@ -37,18 +38,17 @@
                 // TODO: Realizar inserciÃ³n en el calendario!!!
                 // TODO: Enviar mail al fisio
                 // TODO: Mostrar pantalla de okey
-	        	
+	        
         		$path = '/Zend/library';
 	        	$oldPath = set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 	        	require_once 'Zend/Loader.php';
-	        	require_once '/Zend/library/Zend/Gdata/Calendar/CalendarActions.php';
 	        	Zend_Loader::loadClass('Zend_Gdata');
 	        	Zend_Loader::loadClass('Zend_Gdata_AuthSub');
 	        	Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
 	        	Zend_Loader::loadClass('Zend_Gdata_HttpClient');
 	        	Zend_Loader::loadClass('Zend_Gdata_Calendar');
-	        	Zend_Loader::loadClass('CalendarActions');
 	        	
+	   
 	        	// User whose calendars you want to access
 	        	$user = 'fisiocalendar@gmail.com';
 	        	$pass = 'fisiofisio';
@@ -56,12 +56,33 @@
 	        	$serviceName = Zend_Gdata_Calendar::AUTH_SERVICE_NAME; // predefined service name for calendar
 	        	$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $serviceName);
 	        	$service = new Zend_Gdata_Calendar($client);
-	        	$actions = new CalendarActions();
 	        	
-	        	$event = $actions->updateEvent ($client, $eventId, $title);
+	        	$eventURI = "http://www.google.com/calendar/feeds/hv5gfg41m9g2a87kr27uso10p0@group.calendar.google.com/private/full/".$eventId;
 	        	
+	        	//echo $eventURI;
+	        	
+	        	// Get the event
+				$event = $service->getCalendarEventEntry($eventURI);
+
+				$when = $service->newWhen();
+				// Set start and end times in RFC3339 (http://www.ietf.org/rfc/rfc3339.txt)
+				$when->startTime = "2012-12-12T10:00:00.000+01:00"; // 8th July 2010, 4:30 pm (+5:30 GMT)
+				$when->endTime = "2012-12-12T11:00:00.000+01:00"; // 8th July 2010, 5:30 pm (+5:30 GMT)
+				// Set the when attribute for the event
+				$event->when = array($when);
+				
+				echo sizeof($event->when);
+	        	
+	        	$service->delete($event->getEditLink()->href);
        		    if ($event != null) {
-	
+				
+       		    	// Change the title
+       		    	//$event->title = $service->newTitle("LIBRE JOSE");
+       		
+       		    	
+       		    	// Save the event
+       		    	//$event->save();
+       		    	
 	        		echo "<script>alert('Se ha reservado correctamente')</script>";
 	        		
 	        		session_unset();
@@ -82,5 +103,52 @@
                 session_destroy();
         }
 
+        
+        
+        
+        function updateEvent ($client, $eventId, $newTitle)
+        {
+        	$gdataCal = new Zend_Gdata_Calendar($client);
+        	if ($eventOld = getEvent($client, $eventId)) {
+        		/* echo "Old title: " . $eventOld->title->text . "<br />\n";*/
+        		$eventOld->title = $gdataCal->newTitle($newTitle);
+        		$eventOld->setVisibility('private');
+        		try {
+        			$eventOld->save();
+        		} catch (Zend_Gdata_App_Exception $e) {
+        			var_dump($e);
+        			return null;
+        		}
+        		$eventNew = getEvent($client, $eventId);
+        		/* echo "New title: " . $eventNew->title->text . "<br />\n";*/
+        		return $eventNew;
+        	} else {
+        		return null;
+        	}
+        }
+        
+        function getEvent($client, $eventId)
+        {
+        	$gdataCal = new Zend_Gdata_Calendar($client);
+        	$query = $gdataCal->newEventQuery();
+        	//$query->setUser('default');
+        	//$query->setVisibility('private');
+        	//$query->setProjection('full');
+        	$query->setEvent($eventId);
+        
+        	try {
+        		$eventEntry = $gdataCal->getCalendarEventEntry($query);
+        		return $eventEntry;
+        	} catch (Zend_Gdata_App_Exception $e) {
+        		var_dump($e);
+        		return null;
+        	}
+        }
+        
+        function deleteEventById ($client, $eventId)
+        {
+        	$event = getEvent($client, $eventId);
+        	$event->delete();
+        }
 ?>
 
