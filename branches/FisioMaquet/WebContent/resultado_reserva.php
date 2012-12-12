@@ -1,6 +1,7 @@
 <?php
 
 		session_start();
+		$ini_array = parse_ini_file("config.ini");
 		
         $isAdmin=false;
         if (isset($_SESSION['user']))
@@ -22,12 +23,16 @@
         // Recogemos de sesión el detalle de la cita
         $title = $_SESSION["title"];
         $description = $_SESSION["description"];
-//         $startTime = $_SESSION["startTime"];
+        $startTime = $_SESSION["startTime"];
+        $startDate = $_SESSION["starDate"]; 
 //         $endTime = $_SESSION["endTime"];
 //         $calendar = $_SESSION["calendar"];
 //         $private = $_SESSION["private"];
         $eventId = $_SESSION["eventId"];
 		$calendar = $_SESSION["calendar"];
+		$idFisio = $_SESSION["calendar"];
+		$endDateRFC = 	$_SESSION["endDateRFormatRFC"];
+		$startDateRFC = $_SESSION["startDateFormatRFC"];
         
         if ($isAdmin || $compra == "si"){ // El pago se ha realizado correctamente
         	if (!$isAdmin){
@@ -57,43 +62,68 @@
 	        	$client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $serviceName);
 	        	$service = new Zend_Gdata_Calendar($client);
 	        	
-	        	$eventURI = "http://www.google.com/calendar/feeds/hv5gfg41m9g2a87kr27uso10p0@group.calendar.google.com/private/full/".$eventId;
+	        	$eventURI = "http://www.google.com/calendar/feeds/".$ini_array['fisioGooglId'][$idFisio-1]."/private/full/".$eventId;
 	        	
-	        	//echo $eventURI;
 	        	
-	        	// Get the event
-				$event = $service->getCalendarEventEntry($eventURI);
-
-				$when = $service->newWhen();
-				// Set start and end times in RFC3339 (http://www.ietf.org/rfc/rfc3339.txt)
-				$when->startTime = "2012-12-12T10:00:00.000+01:00"; // 8th July 2010, 4:30 pm (+5:30 GMT)
-				$when->endTime = "2012-12-12T11:00:00.000+01:00"; // 8th July 2010, 5:30 pm (+5:30 GMT)
-				// Set the when attribute for the event
-				$event->when = array($when);
+	        	try
+	        	{
+		        	// Get the event
+					$event = $service->getCalendarEventEntry($eventURI);
+	
+					$when = $service->newWhen();
+					// Set start and end times in RFC3339 (http://www.ietf.org/rfc/rfc3339.txt)
+					$when->startTime = $startDateRFC; // 8th July 2010, 4:30 pm (+5:30 GMT)
+					$when->endTime = $endDateRFC; // 8th July 2010, 5:30 pm (+5:30 GMT)
+					// Set the when attribute for the event
+					$event->when = array($when);
+					
+					echo sizeof($event->when);
+		        	
+					$borradoCorrecto = true;
 				
-				echo sizeof($event->when);
 	        	
-	        	$service->delete($event->getEditLink()->href);
-       		    if ($event != null) {
-				
-       		    	// Change the title
-       		    	//$event->title = $service->newTitle("LIBRE JOSE");
-       		
-       		    	
-       		    	// Save the event
-       		    	//$event->save();
-       		    	
-	        		echo "<script>alert('Se ha reservado correctamente')</script>";
-	        		
-	        		session_unset();
-	        		session_destroy();
-	        		
-	        	} else {
-	        		echo "<script>alert('Ha ocurrido un error insertando en el calebdarui ')</script>";
-                	session_unset();
-                	session_destroy();
+	        		$service->delete($event->getEditLink()->href);
+	        	} catch (Exception $e) {
+	        		$borradoCorrecto = false;
 	        	}
 	        	
+			//	echo $borradoCorrecto;
+				
+       		    if($borradoCorrecto == true)
+       		    {
+       		    	$eventToInsert= $service->newEventEntry();
+       		    	//Creamos un nuevo Evento 
+       		    	$eventToInsert->title = $service->newTitle($title);
+					// Where attribute can have multiple values and hence passing an array of where objects
+					//$event->where = array($service->newWhere("Nagpur, India"));
+					$eventToInsert->content = $service->newContent($description);
+					
+					// Create an object of When and set start and end datetime for the event
+					$when2 = $service->newWhen();
+					// Set start and end times in RFC3339 (http://www.ietf.org/rfc/rfc3339.txt)
+					$when2->startTime = $startDateRFC; // 8th July 2010, 4:30 pm (+5:30 GMT)					
+					$when2->endTime = $endDateRFC; // 8th July 2010, 5:30 pm (+5:30 GMT)
+					// Set the when attribute for the event
+					$eventToInsert->when = array($when2);
+					
+					try{
+						// Create the event on google server
+						$newEvent = $service->insertEvent($eventToInsert);
+						header('Location: outcome.php');
+						 
+						session_unset();
+						session_destroy();
+						 
+					}catch(Exception $e)
+					{
+						echo $e;
+						echo "<script>alert('Ha ocurrido un error insertando en el calebdarui ')</script>";
+					//	session_unset();
+					//	session_destroy();
+					}
+					
+       		    }
+       		    
 	        	
         }
         else{ // Ha ocurrido un erro al realizar el pago

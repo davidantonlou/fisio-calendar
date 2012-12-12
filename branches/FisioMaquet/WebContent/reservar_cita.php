@@ -77,6 +77,8 @@
 		    else{
 			    document.createEvent.eventId.value =document.createEvent.selectDate.options[document.createEvent.selectDate.options.selectedIndex].value;
 			    document.createEvent.hour.value =   document.createEvent.selectDate.options[document.createEvent.selectDate.options.selectedIndex].innerHTML;
+				document.createEvent.endDateRFormatRFC.value = arrayGlobalDates[document.createEvent.selectDate.options.selectedIndex].endDate;
+				document.createEvent.startDateFormatRFC.value = arrayGlobalDates[document.createEvent.selectDate.options.selectedIndex].startDate;
 		    	document.createEvent.submit();
 		    }
 	    };	    
@@ -92,9 +94,13 @@
 
 <h1 class="title">Reserva de citas</h1>
 <form id="createEvent" name="createEvent" method="post" action="confirmar_reserva.php">
+	
 	<input type="hidden" name="calendar"/>
 	<input type="hidden" name="eventId"/>
+	<input type="hidden" name="endDateRFormatRFC"/>
+	<input type="hidden" name="startDateFormatRFC"/>
 	<input type="hidden" name="hour"/>
+	
 	<br/><br/>
 	 <table style="padding-left: 10%">
 	 	<tr>

@@ -9,7 +9,19 @@ div.ui-datepicker
 {
  	background-image:url('http://www.fisioterapiavaldespartera.com/sites/all/themes/danland/images/fondo-content.jpg');
 }
- 
+ div.backgroundCenter
+{
+ 	background-image:url('http://www.fisioterapiavaldespartera.com/sites/all/themes/danland/images/fondo-content.jpg');
+	width: 100%;
+	height: auto;
+ }
+.center
+{
+		margin-left: 20%;
+		margin-right: 40%;
+		margin-top: 20%;
+}
+
 select 
 {
 	width: 150px;
@@ -26,6 +38,16 @@ input
 	filter: dropshadow(color=#000000, offx=1, offy=10);
 	font-size:22px;
 	text-align:left;
+	font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
+}
+
+.finishTittle
+{
+	text-shadow: 1px 10px 10px #000000;
+	filter: dropshadow(color=#000000, offx=1, offy=10);
+	font-size:22px;
+	text-align:left;
+	color :green;
 	font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
 }
 

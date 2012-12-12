@@ -1,7 +1,7 @@
 
 	//Global variables
     var apiKey = 'AIzaSyAC_gse6kyOwfawjhN1STkE_LkK_pCHHPI';
-    
+    var arrayGlobalDates;
     //Carga las horas libres 
     function loadFreeHours(day,calendar)
 	{
@@ -43,13 +43,14 @@
 
 			request.done(
 					function(resp) {
+						 arrayGlobalDates = new Array();
 						if(resp.items != undefined)
 						{
-						  var arrayOfDates = new Array();
+						  var arrayOfDates = new Array();						
 					      for (var i = 0; i < resp.items.length; i++)
 						  {  		    	  
 					    	 arrayOfDates[i] =  createDateObject(resp.items[i]);  		       
-					      }
+					      }					      
 					      createSelectWithFreeHours(arrayOfDates);
 						}else
 						{	
@@ -73,11 +74,14 @@
 	{ 		
     	var objectDate;
     	var select = document.getElementById("selectDate");
+    	var j=0;
     	for(var i= 0;i<object.length;i++)
     	{
     		objectDate = object[i];
     		if(objectDate.summary != undefined && objectDate.summary != null && objectDate.summary.indexOf("LIBRE") != -1)
     		{
+    			arrayGlobalDates[j] = objectDate;
+    			j++;
     			var objOption=document.createElement("option");
         		objOption.innerHTML = objectDate.hour+":"+objectDate.minutes;
         		objOption.value = objectDate.id;
@@ -106,13 +110,18 @@
 				dateObject.day = timeString.split("-")[2].split("T")[0];
 				dateObject.month = timeString.split("-")[1];
 				dateObject.year = timeString.split("-")[0];
+				
+				dateObject.startDate = timeString;
+				
 				if(resp.result != undefined)
 				{
 					dateObject.summary = resp.result.summary;
 					dateObject.id = rep.result.id;
+					dateObject.endDate = resp.resutl.end.dateTime; 				
 				}else{
 					dateObject.summary = resp.summary;
 					dateObject.id = resp.id;
+					dateObject.endDate = resp.end.dateTime; 
 				}
 		}
 	
