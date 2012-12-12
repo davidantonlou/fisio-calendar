@@ -14,7 +14,7 @@
    			$b_user=mysql_query("SELECT * FROM usuarios WHERE user='".$user."'");
    			$ses = @mysql_fetch_assoc($b_user) ;
    			if(@mysql_num_rows($b_user)){
-   				if($ses['pass'] == sha($pass)){
+   				if($ses['pass'] == sha1($pass)){
    					session_register("id");
    					session_register("user");
    					$_SESSION['id']= $ses["id"];
@@ -39,7 +39,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Administraci&#243;n</title>
     <link rel="stylesheet" href="css/calendarStyle.css"> 
-    
+    <script type="text/javascript" src="js/login.js"></script>
     <style type="text/css">
     	div.ui-datepicker{
     	font-size:10px;
@@ -59,7 +59,7 @@
     <body>
     <h1 class="title">Administraci&#243;n Fisioterapia Valdespartera</h1>
     <div padding-left="20px"  class="background">
-        <form name="login_user" action="" method="post" >
+        <form name="login_user" action="login.php" method="post" >
         
         	<table style="margin-left:30%; margin-right:60%;">
         	<tr>
@@ -71,14 +71,14 @@
            	<td> <input type="password" id='pass' name='pass' /></td>
            	</tr>
            	<tr>
-           		<td><br/>§</td>
+           		<td><br/></td>
            	</tr>
            	<tr>
            		<td>
-           		 <a style="margin-left:100%" class="button" onclick="javascript:document.login_user.submit();">Entrar</a>
+           		 <a style="margin-left:100%" class="button" onclick="javascript:doLogin();">Entrar</a>
            		</td>
            		<td>
-           		 <a style="margin-left:50%" class="button" onclick="javascript:document.login_user.user='';document.login_user.pass='';">Limpiar</a>
+           		 <a style="margin-left:50%" class="button" onclick="javascript:clearLoginFields();">Limpiar</a>
            		</td>
            	</tr>
         	</table>

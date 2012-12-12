@@ -34,9 +34,17 @@
 		$_SESSION["startDate"] = $_POST["datepicker"];
 		$_SESSION["startTime"] = $_POST["hour"];
 		$_SESSION["calendar"] = $_POST["calendarCombo"];
+		$_SESSION["endDate"] = $_POST["endDate"];
 		$_SESSION["title"] = $_POST["title"];
 		$_SESSION["description"] = $_POST["description"];
 		$_SESSION["eventId"] = $_POST["eventId"];
+
+		
+		//Muy util fecha de inicio y fin en formatoRFC
+		$_SESSION["endDateRFormatRFC"] = $_POST["endDateRFormatRFC"];
+		$_SESSION["startDateFormatRFC"] = $_POST["startDateFormatRFC"];
+		
+		
 	if (!$isAdmin){			 		
 		// Preparamos la longitud del número de pedido
 		$num = '' . $pedido["numpedido"];
