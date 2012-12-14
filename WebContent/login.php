@@ -1,7 +1,7 @@
 <?php
 
 		session_start();
-   		include("datos_conexion.php");
+   		include_once("datos_conexion.php");
     
    		if(isset($_POST['modo']) == 'desconectar'){
    			session_unset();
