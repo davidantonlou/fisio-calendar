@@ -23,12 +23,12 @@
    				}
    				else{
    					header('Location: login.php');
-   					echo '<script>alert("Nombre de Usuario o contrase&#241;a incorrecta.");</script>';
+   					echo 'Nombre de Usuario o contrase&#241;a incorrecta.';
    				}
    			}
    			else{
    				header('Location: login.php');
-   				echo '<script>alert("Nombre de Usuario o contrase&#241;a incorrecta.");</script>';
+   				echo 'Nombre de Usuario o contrase&#241;a incorrecta.';
    			}
    		}
    ?>
