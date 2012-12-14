@@ -6,15 +6,15 @@
    			session_unset();
    			session_destroy();
    		}
-   	   		
-   		if(isset($_POST['login'])){
+   	   	   		
+   		if(isset($_POST['user']) && isset($_POST['pass'])){
    			session_regenerate_id();
    			$user= $_POST['user'];
    			$pass= $_POST['pass'];
    			$b_user=mysql_query("SELECT * FROM usuarios WHERE user='".$user."'");
    			$ses = @mysql_fetch_assoc($b_user) ;
    			if(@mysql_num_rows($b_user)){
-   				if($ses['pass'] == sha1($pass)){
+   				if($ses["pass"] == sha1($pass)){
    					session_register("id");
    					session_register("user");
    					$_SESSION['id']= $ses["id"];
@@ -23,12 +23,12 @@
    				}
    				else{
    					header('Location: login.php');
-   					echo 'Nombre de usuario o contrase&#241;a incorrecta.';
+   					echo '<script>alert("Nombre de Usuario o contrase&#241;a incorrecta.");</script>';
    				}
    			}
    			else{
    				header('Location: login.php');
-   				echo 'Nombre de Usuario o contrase&#241;a incorrecta.';
+   				echo '<script>alert("Nombre de Usuario o contrase&#241;a incorrecta.");</script>';
    			}
    		}
    ?>
