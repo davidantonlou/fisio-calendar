@@ -1,5 +1,6 @@
-   <?php 
-   		session_start();
+<?php
+
+		session_start();
    		include("datos_conexion.php");
     
    		if(isset($_POST['modo']) == 'desconectar'){
@@ -7,18 +8,16 @@
    			session_destroy();
    		}
    	   	   		
-   		if(isset($_POST['user']) && isset($_POST['pass'])){
-   			session_regenerate_id();
+   		if(isset($_POST['user']) && isset($_POST['pass']))
+   		{  			
    			$user= $_POST['user'];
    			$pass= $_POST['pass'];
-   			$b_user=mysql_query("SELECT * FROM usuarios WHERE user='".$user."'");
-   			$ses = @mysql_fetch_assoc($b_user) ;
+   			$b_user=mysql_query("SELECT * FROM usuarios WHERE USER_FISIO='".$user."'");
+   			$ses = @mysql_fetch_assoc($b_user);
    			if(@mysql_num_rows($b_user)){
-   				if($ses["pass"] == sha1($pass)){
-   					session_register("id");
-   					session_register("user");
-   					$_SESSION['id']= $ses["id"];
-   					$_SESSION['user']= $ses["user"];
+   				if($ses["PASS"] == sha1($pass)){
+   					$_SESSION['id']= $ses["ID"];
+   					$_SESSION['user']= $ses["USER_FISIO"];
    					header('Location: reservar_cita.php');
    				}
    				else{
@@ -74,11 +73,12 @@
            		<td><br/></td>
            	</tr>
            	<tr>
+           		<td>&nbsp;</td>
            		<td>
-           		 <a style="margin-left:100%" class="button" onclick="javascript:doLogin();">Entrar</a>
+           		 <a style="margin-left:50%" class="button" onclick="javascript:doLogin();">Entrar</a>
            		</td>
            		<td>
-           		 <a style="margin-left:50%" class="button" onclick="javascript:clearLoginFields();">Limpiar</a>
+           		 <a style="margin-left:20%" class="button" onclick="javascript:clearLoginFields();">Limpiar</a>
            		</td>
            	</tr>
         	</table>
