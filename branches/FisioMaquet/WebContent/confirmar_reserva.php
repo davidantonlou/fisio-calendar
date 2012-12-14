@@ -1,9 +1,11 @@
 <?php
+
+	session_start();
+	
 	include("datos_conexion.php");
 	include ("js/sha1.txt");
 	
-	session_start();
-	
+		
 	$isAdmin=false;
 	if (isset($_SESSION['user']))
 		$isAdmin=true;
@@ -137,7 +139,7 @@
 		 	</tr>
 		 	<tr>
 		 		<td>Fisioterapeuta: </td>
-		 		<td><?php echo $_SESSION["calendar"]; ?>
+		 		<td><?php echo $ini_array['namesList'][$_SESSION["calendar"]] ?>
 		 		</td>
 		 	</tr>
 		 	<tr>
