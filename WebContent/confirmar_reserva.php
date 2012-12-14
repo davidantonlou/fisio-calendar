@@ -34,7 +34,6 @@
 		$_SESSION["startDate"] = $_POST["datepicker"];
 		$_SESSION["startTime"] = $_POST["hour"];
 		$_SESSION["calendar"] = $_POST["calendarCombo"];
-		$_SESSION["endDate"] = $_POST["endDate"];
 		$_SESSION["title"] = $_POST["title"];
 		$_SESSION["description"] = $_POST["description"];
 		$_SESSION["eventId"] = $_POST["eventId"];
