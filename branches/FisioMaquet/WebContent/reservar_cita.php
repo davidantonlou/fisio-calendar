@@ -125,7 +125,7 @@
 				 			<span class="text">Fecha:</span>
 				 		</td>
 				 		<td>
-					 		<input type="text" id="datepicker" name="datepicker" onchange="loadFreeHours(this.value)" disabled="disabled"  class="required" readony="readonly"/>		 		
+					 		<input type="text" id="datepicker" name="datepicker" onchange="loadFreeHours(this.value)" disabled="disabled"  class="required" readonly="readonly"/>		 		
 				 		</td>
 				 		
 				 	</tr>
@@ -134,7 +134,7 @@
 				 			<span class="text">Hora:</span>  
 				 		</td>
 				 		<td>
-				 			<select  id="selectDate" name="selectDate" disabled="disabled"  class="required"/>
+				 			<select  id="selectDate" name="selectDate" disabled="disabled"  class="required"></select>
 				 		</td>
 				 	</tr>
 				 	<tr>
