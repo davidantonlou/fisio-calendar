@@ -18,6 +18,7 @@
    			$ses = @mysql_fetch_assoc($b_user);
    			if(@mysql_num_rows($b_user)){
    				if($ses["PASS"] == sha1($pass)){
+   					$logger->info("Login: " . $ses["USER_FISIO"]);
    					$_SESSION['id']= $ses["ID"];
    					$_SESSION['user']= $ses["USER_FISIO"];
    					header('Location: reservar_cita.php');
