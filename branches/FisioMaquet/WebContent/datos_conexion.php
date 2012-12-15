@@ -1,4 +1,26 @@
 <?php
+		require_once('log4php/Logger.php');
+		
+		Logger::configure(array(
+				'rootLogger' => array(
+						'appenders' => array('default'),
+				),
+				'appenders' => array(
+						'default' => array(
+								'class' => 'LoggerAppenderFile',
+								'layout' => array(
+										'class' => 'LoggerLayoutSimple'
+								),
+								'params' => array(
+										'file' => 'C:\Logs\fisio_log.log',
+										'append' => true
+								)
+						)
+				)
+		));
+		
+		$logger = Logger::getLogger('fisioLog');
+
 		$ini_array = parse_ini_file("config.ini");
         $conectar = mysql_connect($ini_array['serverBBDD'],$ini_array['userBBDD'],$ini_array['passBBDD']) or exit('Datos de conexion incorrectos.');
         mysql_select_db($ini_array['nameBBDD']) or exit('No existe la base de datos.');
