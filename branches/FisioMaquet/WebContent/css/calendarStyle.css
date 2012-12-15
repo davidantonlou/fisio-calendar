@@ -5,9 +5,35 @@ div.ui-datepicker
     font-size:10px;
 }
 
+body
+{
+  color: #000000;
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+  font-size: 84%;
+  line-height: 1.5em;
+}
+
+p
+{
+	font-family: Trebuchet MS;
+	font-size: 14px;
+}
  div.background
 {
- 	background-image:url('http://www.fisioterapiavaldespartera.com/sites/all/themes/danland/images/fondo-content.jpg');
+	  background-image:url('http://www.fisioterapiavaldespartera.com/sites/all/themes/danland/images/fondo-content.jpg');
+	  background-repeat: repeat-y repeat-x;
+		/* Rellenamos el fondo */
+       min-height: 100%;
+       min-width: 800px;
+
+       /* Escalamiento proporcional */
+       width: 100%;
+       height: auto;
+
+       /* Posicionamiento */
+       position: fixed;
+       top: 0;
+       left: 0
 }
  div.backgroundCenter
 {
@@ -86,6 +112,7 @@ input
    font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
    text-decoration: none;
    vertical-align: middle;
+   cursor: pointer;
 }
 
 .button:hover 
@@ -93,9 +120,194 @@ input
    border-top-color: #296678;
    background: #296678;
    color: #ccc;
+   cursor: pointer;
 }
 .button:active 
 {
    border-top-color: #9c793e;
    background: #9c793e;
+   cursor: pointer;
+}
+
+/*Table css*/
+
+.tableInfo {
+
+	margin:0px;padding:0px;
+
+	width:100%;
+	box-shadow: 10px 10px 5px #888888;
+
+	border:1px solid #000000;
+
+	
+
+	-moz-border-radius-bottomleft:6px;
+
+	-webkit-border-bottom-left-radius:6px;
+
+	border-bottom-left-radius:6px;
+
+	
+
+	-moz-border-radius-bottomright:6px;
+
+	-webkit-border-bottom-right-radius:6px;
+
+	border-bottom-right-radius:6px;
+
+	
+
+	-moz-border-radius-topright:6px;
+
+	-webkit-border-top-right-radius:6px;
+
+	border-top-right-radius:6px;
+
+	
+
+	-moz-border-radius-topleft:6px;
+
+	-webkit-border-top-left-radius:6px;
+
+	border-top-left-radius:6px;
+
+}.tableInfo table{
+
+	width:100%;
+
+	height:100%;
+
+	margin:0px;padding:0px;
+
+}.tableInfo tr:last-child td:last-child {
+
+	-moz-border-radius-bottomright:6px;
+
+	-webkit-border-bottom-right-radius:6px;
+
+	border-bottom-right-radius:6px;
+
+}
+
+.CSSTableGenerator table tr:first-child td:first-child {
+
+	-moz-border-radius-topleft:6px;
+
+	-webkit-border-top-left-radius:6px;
+
+	border-top-left-radius:6px;
+
+}
+
+.tableInfo table tr:first-child td:last-child {
+
+	-moz-border-radius-topright:6px;
+
+	-webkit-border-top-right-radius:6px;
+
+	border-top-right-radius:6px;
+
+}.tableInfo tr:last-child td:first-child{
+
+	-moz-border-radius-bottomleft:6px;
+
+	-webkit-border-bottom-left-radius:6px;
+
+	border-bottom-left-radius:6px;
+
+}.tableInfo tr:hover td{
+
+	background-color:#ffffff;
+
+		
+
+
+}
+
+.tableInfo td{
+
+	vertical-align:middle;
+
+	
+
+	background-color:#ffaa56;
+
+
+	border:1px solid #000000;
+
+	border-width:0px 1px 1px 0px;
+
+	text-align:left;
+
+	padding:7px;
+
+	font-size:10px;
+
+	font-family:Trebuchet MS;
+
+	font-weight:normal;
+
+	color:#000000;
+
+}.tableInfo tr:last-child td{
+
+	border-width:0px 1px 0px 0px;
+
+}.CSSTableGenerator tr td:last-child{
+
+	border-width:0px 0px 1px 0px;
+
+}.CSSTableGenerator tr:last-child td:last-child{
+
+	border-width:0px 0px 0px 0px;
+
+}
+
+.tableInfo tr:first-child td{
+
+		background:-o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
+	background:-moz-linear-gradient( center top, #ff7f00 5%, #bf5f00 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7f00", endColorstr="#bf5f00");	background: -o-linear-gradient(top,#ff7f00,bf5f00);
+
+
+	background-color:#ff7f00;
+
+	border:0px solid #000000;
+
+	text-align:center;
+
+	border-width:0px 0px 1px 1px;
+
+	font-size:14px;
+
+	font-family:Trebuchet MS;
+
+	font-weight:bold;
+
+	color:#ffffff;
+
+}
+
+.tableInfo tr:first-child:hover td{
+
+	background:-o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
+	background:-moz-linear-gradient( center top, #ff7f00 5%, #bf5f00 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7f00", endColorstr="#bf5f00");	background: -o-linear-gradient(top,#ff7f00,bf5f00);
+
+
+	background-color:#ff7f00;
+
+}
+
+.tableInfo tr:first-child td:first-child{
+
+	border-width:0px 0px 1px 0px;
+
+}
+
+.tableInfo tr:first-child td:last-child{
+
+	border-width:0px 0px 1px 1px;
+
 }

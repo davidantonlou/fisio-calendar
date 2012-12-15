@@ -25,7 +25,7 @@
 	    function changeCalendar(value)
 	    {
 	    	var listado=new Array();
-	    	<?
+	    	<?php
 	    		for($i=0; $i<sizeof($ini_array['calendarList']); $i++){
 	    			echo "listado[".$i."]='".$ini_array['calendarList'][$i]."';\n";
 	    		}			
@@ -102,57 +102,73 @@
 	<input type="hidden" name="hour"/>
 	
 	<br/><br/>
-	 <table style="padding-left: 10%">
-	 	<tr>
-	 		<td>
-	 			<span class="text">Seleccione doctor :</span>
-	 		</td>
-	 		<td>
-	 			<select id="calendarCombo" name="calendarCombo" onchange="changeCalendar(this.value);"  class="required">
-	 				<?php 
-	 					for ($i=0; $i<sizeof($ini_array['namesList']); $i++){
-	 						echo '<option value="'. $i .'">'. $ini_array["namesList"][$i] .'</option>';
-	 					}
-	 				?>
-	 			</select>
-	 		</td>
-	 	</tr>
-	 	<tr>
-	 		<td> 
-	 			<span class="text">Fecha:</span>
-	 		</td>
-	 		<td>
-		 		<input type="text" id="datepicker" name="datepicker" onchange="loadFreeHours(this.value)" disabled="disabled"  class="required" readony="readonly"/>		 		
-	 		</td>
-	 		
-	 	</tr>
-	 	<tr>
-	 		<td>
-	 			<span class="text">Hora:</span>  
-	 		</td>
-	 		<td>
-	 			<select  id="selectDate" name="selectDate" disabled="disabled"  class="required"/>
-	 		</td>
-	 	</tr>
-	 	<tr>
-	 		<td> <span class="text">Nombre: </span>  </td>
-	 		<td> <input type="text" size="55px" id="title" name="title"  class="required"/> </td>
-	 	</tr>
-	 	<tr>
-	 		<td> <span class="text"> Anotaciones adicionales: </span> </td>
-	 		<td> <textarea id="description" name="description" style="resize: none;" cols="25" rows="2"></textarea> </td>
-	 	</tr>
-	 </table>
-	 <br/><br/>
-	 
-	 <a style="margin-left:45%" class="button submit" onclick="javascript:validar();">Reservar</a>
- </form>
+	<table style="width: 100%;">
+		<tr>
+			<td>
+				 <table style="padding-left: 10%;margin-bottom: 45%;">
+				 	<tr>
+				 		<td>
+				 			<span class="text">Seleccione doctor :</span>
+				 		</td>
+				 		<td>
+				 			<select id="calendarCombo" name="calendarCombo" onchange="changeCalendar(this.value);"  class="required">
+				 				<?php 
+				 					for ($i=0; $i<sizeof($ini_array['namesList']); $i++){
+				 						echo '<option value="'. $i .'">'. $ini_array["namesList"][$i] .'</option>';
+				 					}
+				 				?>
+				 			</select>
+				 		</td>
+				 	</tr>
+				 	<tr>
+				 		<td> 
+				 			<span class="text">Fecha:</span>
+				 		</td>
+				 		<td>
+					 		<input type="text" id="datepicker" name="datepicker" onchange="loadFreeHours(this.value)" disabled="disabled"  class="required" readony="readonly"/>		 		
+				 		</td>
+				 		
+				 	</tr>
+				 	<tr>
+				 		<td>
+				 			<span class="text">Hora:</span>  
+				 		</td>
+				 		<td>
+				 			<select  id="selectDate" name="selectDate" disabled="disabled"  class="required"/>
+				 		</td>
+				 	</tr>
+				 	<tr>
+				 		<td> <span class="text">Nombre: </span>  </td>
+				 		<td> <input type="text" size="55px" id="title" name="title"  class="required"/> </td>
+				 	</tr>
+				 	<tr>
+				 		<td> <span class="text"> Anotaciones adicionales: </span> </td>
+				 		<td> <textarea id="description" name="description" style="resize: none;" cols="25" rows="2"></textarea> </td>
+				 	</tr>
+				 	<tr>
+				 		<td>
+				 		</td>
+				 		<td>
+				 			 <a style="margin-left:65%;" class="button submit" onclick="javascript:validar();">Reservar</a>
+				 		</td>
+				 	</tr>
+				 </table>
+				 <br/><br/>
+				 
+				
+			</td>
+			<td style="padding-left: 8%;">
+				<table>
+				 	<tr>
+				 		<td><iframe id="doctorCalendar" src="https://www.google.com/calendar/embed?title=Fisioterapia%20Valdespartera&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showCalendars=0&amp;showTz=0&amp;mode=WEEK&amp;height=600&amp;wkst=2&amp;bgcolor=%23ffffff&amp;src=hv5gfg41m9g2a87kr27uso10p0%40group.calendar.google.com&amp;color=%23B1440E&amp;src=t82rb1fmjt84v4mq2sso91fr7c%40group.calendar.google.com&amp;color=%232F6309&amp;src=fisiocalendar%40gmail.com&amp;color=%232952A3&amp;ctz=Europe%2FMadrid" style=" border-width:0 " width="700" height="600" frameborder="0" scrolling="no"></iframe></td>
+				 	</tr>
+				 </table>
+			</td>
+		</tr>
+	</table>
+	</form>	
  <br/><br/>
- <table>
- 	<tr>
- 		<td><iframe id="doctorCalendar" src="https://www.google.com/calendar/embed?title=Fisioterapia%20Valdespartera&amp;showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showCalendars=0&amp;showTz=0&amp;mode=WEEK&amp;height=600&amp;wkst=2&amp;bgcolor=%23ffffff&amp;src=hv5gfg41m9g2a87kr27uso10p0%40group.calendar.google.com&amp;color=%23B1440E&amp;src=t82rb1fmjt84v4mq2sso91fr7c%40group.calendar.google.com&amp;color=%232F6309&amp;src=fisiocalendar%40gmail.com&amp;color=%232952A3&amp;ctz=Europe%2FMadrid" style=" border-width:0 " width="800" height="600" frameborder="0" scrolling="no"></iframe></td>
- 	</tr>
- </table>
+ 
  </div>
 </body>
 </html>

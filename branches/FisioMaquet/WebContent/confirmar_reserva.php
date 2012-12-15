@@ -3,7 +3,7 @@
 	session_start();
 	
 	include("datos_conexion.php");
-	include ("js/sha1.txt");
+	// 	include ("js/sha1.txt");
 	
 		
 	$isAdmin=false;
@@ -84,26 +84,16 @@
     <meta charset="utf-8" />
     <title>Fisioterapia Valdespartera</title>
 	<link rel="stylesheet" href="css/calendarStyle.css"> 
-    <style type="text/css">
- 		div.background{
- 			background-image:url('http://www.fisioterapiavaldespartera.com/sites/all/themes/danland/images/fondo-content.jpg');
- 		}
- 		body{
- 		color: #000000;
-	    font-family: Verdana,Arial,Helvetica,sans-serif;
-	    font-size: 84%;
-	    line-height: 1.5em;
-       }
-    </style>
     	
 </head>
 <body>
 <div class="background">
-<?php if ($isAdmin){?>
-	<a class="button" href="javascript: location.href='login.php?modo=desconectar';" style="margin-left: 90%">Desconectar</a>
-<?php }?>
 
-<h1>Confirmar Reserva</h1>
+<?php if ($isAdmin){?>
+	<a class="button" href="javascript: location.href='login.php?modo=desconectar';" style="margin-left: 90%;margin-top: 15%">Desconectar</a>
+<?php }?>
+<div class="center" style="margin-top:15%;margin-left: 35%;">
+<h1 class="title" style="padding-right: 5%;">Confirmar Reserva</h1>
 	
 <?php 
 	if ($isAdmin){
@@ -129,7 +119,7 @@
 <?php }?>
 
 
-		<table>
+		<table 	 style="margin-left: 15%;margin-top: 5%;">
 		 	<tr>
 		 		<td>Fecha: </td> 
 		 		<td><?php echo $_SESSION["startDate"]; ?>
@@ -160,16 +150,20 @@
 		 		<td>General (30,00 &euro;)</td>
 		 	</tr>
 		 	<tr>
+		 		<td></td>
+		 	</tr>
+		 	<tr>
+		 	<td></td>
 		 	<?php if ($isAdmin){ ?>
-		 		<td><input type="button" value="Confirmar" onclick="javascript:document.confirm_date_final.submit();"/></td>
+		 		<td><a class="button" style="margin-left:50%"  onclick="javascript:document.confirm_date_final.submit();">Confirmar</a></td>
 		 	<?php }else{?>
-		 		<td><input type="button" value="Confirmar y Pagar" onclick="javascript:document.confirm_date.submit();"/></td>
+		 		<td><a class="button" style="margin-left:20%"  onclick="javascript:document.confirm_date.submit();">Confirmar y Pagar</a></td>
 		 	<?php }?>
 		 	
-		 		<td><input type="button" value="Volver" onclick="javascript:history.back();"/></td>
+		 		<td><a class="button" style="margin-left:20%"  onclick="javascript:history.back();">Volver</a></td>
 		 	</tr>
 		 </table>
-
+ </div>
  </div>
 </body>
 </html>
