@@ -18,11 +18,15 @@
 	if ($pedido["numpedido"] != null || !isset($_POST['isReserva'])){		
 		$str_fecha = date("dmyHis");
 		
-		
+		// Creamos un semaforo para evitar numeros de pedido repetidos
+		$sem_key = 12;
+		$sem_id = sem_get($sem_key, 1);
+		if (! sem_acquire($sem_id)) die ('Error esperando a obtener el numero de pedido.');
 		// Obtenemos el número de pedido insertado
 		$sqlQuery=mysql_query("SELECT MAX(numpedido) AS numpedido FROM pedidos");
 		$pedido = @mysql_fetch_assoc($sqlQuery);
-		
+		if (! sem_release($sem_id)) die ('Error esperando a obtener el numero de pedido.');
+				
 		// Insertamos el pedido en base de datos
 		$fecha = $_POST["datepicker"];
 		$hora = $_POST["hour"];
@@ -62,15 +66,14 @@
 		$terminal = "001";
 		$idioma = "0";
 		$numpedido = $num;
-		$url = "http://localhost:80/FisioMaquet/WebContent/resultado_reserva.php";
+		$url = $ini_array["urlResult"];
 		
 		$sha = new SHA;
+		// Fecha + CIP + Importe + Moneda + Numero de Pedido
 		$message = $str_fecha.$cip.$importe.$moneda.$numpedido;
 		$digest1 = $sha->hash_string($message);
 		$firma = $sha->hash_to_string( $digest1 );
 		
-		// Fecha + CIP + Importe + Moneda + Numero de Pedido
-		//$stringSha1 = $str_fecha + "" + "" + "978" + "";
 	}
 ?>
 
