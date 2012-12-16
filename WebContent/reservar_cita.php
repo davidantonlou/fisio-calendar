@@ -46,8 +46,8 @@
 	    $(function() 
 	    {
 	    	 $( "#datepicker" ).datepicker({ dateFormat: "dd/mm/yy" });
-	    	 $( "#datepicker" ).datepicker('option', 'firstDay', 0);
-	    	 $( "#datepicker" ).datepicker("option", "minDate", new Date());
+	    	 $( "#datepicker" ).datepicker('option', 'firstDay', 1);
+	    	 $( "#datepicker" ).datepicker("option", "minDate", '+1d');
 	         
 	    });	    
      </script>
