@@ -4,7 +4,7 @@
 	
 	include("datos_conexion.php");
 	// 	include ("js/sha1.txt");
-	
+	include("sha1.php");
 		
 	$isAdmin=false;
 	if (isset($_SESSION['user']))
@@ -28,12 +28,15 @@
 		if (! sem_release($sem_id)) die ('Error esperando a obtener el numero de pedido.');
 				
 		// Insertamos el pedido en base de datos
+		$patientName = $_POST["title"].$_POST["surname"];
+		$telephone = $_POST["telephone"];
+		$email = $_POST["email"];
 		$fecha = $_POST["datepicker"];
 		$hora = $_POST["hour"];
 		$pagado = false;
 		$fisio = $_POST["calendarCombo"];
 		$numpedido = $pedido["numpedido"] + 1;
-		mysql_query("INSERT INTO pedidos (numpedido, fecha, hora, pagado, fisio) VALUES (". $numpedido .", '". $fecha ."', '$hora','". $pagado ."', '". $fisio ."')");
+		mysql_query("INSERT INTO pedidos (numpedido, fecha, hora, pagado, fisio,telefono,email,paciente) VALUES (". $numpedido .", '". $fecha ."', '$hora','". $pagado ."', '". $fisio ."', '". $telephone ."', '". $email ."', '". $patientName ."')");
 		
 		
 		// Guardamos en sesión la información de la reserva
@@ -92,9 +95,15 @@
 <?php if ($isAdmin){?>
 	<a class="button" href="javascript: location.href='login.php?modo=desconectar';" style="margin-left: 90%;margin-top: 15%">Desconectar</a>
 <?php }?>
-<div class="center" style="margin-top:15%;margin-left: 35%;">
+<div class="center" style="margin-top:10 	 %;margin-left: 35%;">
 <h1 class="title" style="padding-right: 5%;">Confirmar Reserva</h1>
-	
+<table style="margin-left: 10%">
+	<tr>
+		<td>
+			<span class="explica">Para cambiar una reserva  deber&aacute; ponerse en contacto con nuestro centro, llamando al 976 935 739 / 695 701 065. Ser&aacute;n v&aacute;lidas las modificaciones hasta 24h antes de la hora de citaci&oacute;n.</span>
+		</td>
+	</tr>
+</table>
 <?php 
 	if ($isAdmin){
 ?>
@@ -120,6 +129,26 @@
 
 
 		<table 	 style="margin-left: 15%;margin-top: 5%;">
+			<tr>
+		 		<td>Nombre: </td>
+		 		<td><?php echo $_SESSION["title"]; ?>
+		 		</td>
+		 	</tr>
+		 	<tr>
+		 		<td>Apellidos: </td>
+		 		<td><?php echo $_POST["surname"]; ?>
+		 		</td>
+		 	</tr>
+		 	<tr>
+		 		<td>Telefono: </td>
+		 		<td><?php echo $telephone; ?>
+		 		</td>
+		 	</tr>
+		 	<tr>
+		 		<td>Email: </td>
+		 		<td><?php echo $email; ?>
+		 		</td>
+		 	</tr>
 		 	<tr>
 		 		<td>Fecha: </td> 
 		 		<td><?php echo $_SESSION["startDate"]; ?>
@@ -136,11 +165,6 @@
 		 		</td>
 		 	</tr>
 		 	<tr>
-		 		<td>Nombre: </td>
-		 		<td><?php echo $_SESSION["title"]; ?>
-		 		</td>
-		 	</tr>
-		 	<tr>
 		 		<td>Descripci&oacute;n: </td>
 		 		<td><?php echo $_SESSION["description"]; ?>
 		 		</td>
@@ -153,11 +177,12 @@
 		 		<td></td>
 		 	</tr>
 		 	<tr>
-		 	<td></td>
+		 	
 		 	<?php if ($isAdmin){ ?>
+		 		<td></td>
 		 		<td><a class="button" style="margin-left:50%"  onclick="javascript:document.confirm_date_final.submit();">Confirmar</a></td>
-		 	<?php }else{?>
-		 		<td><a class="button" style="margin-left:20%"  onclick="javascript:document.confirm_date.submit();">Confirmar y Pagar</a></td>
+		 	<?php }else{?>	
+		 		<td><a class="button"  onclick="javascript:document.confirm_date.submit();">Confirmar y Pagar</a></td>
 		 	<?php }?>
 		 	
 		 		<td><a class="button" style="margin-left:20%"  onclick="javascript:history.back();">Volver</a></td>

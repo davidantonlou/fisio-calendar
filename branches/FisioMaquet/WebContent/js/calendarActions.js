@@ -17,10 +17,10 @@
 		dateObject.day = day.split("/")[0];
 		dateObject.month = day.split("/")[1];
 		dateObject.year = day.split("/")[2];
-		
-		if(document.createEvent.calendarCombo.value == 1) dateObject.calendar = "fisiocalendar@gmail.com";
-		if(document.createEvent.calendarCombo.value == 2) dateObject.calendar = "hv5gfg41m9g2a87kr27uso10p0@group.calendar.google.com";
-		if(document.createEvent.calendarCombo.value == 3) dateObject.calendar = "t82rb1fmjt84v4mq2sso91fr7c@group.calendar.google.com";
+		var valueCalendarCombo = getSelectedOption("calendarCombo");
+		if(valueCalendarCombo == 1) dateObject.calendar = "fisiocalendar@gmail.com";
+		if(valueCalendarCombo == 2) dateObject.calendar = "hv5gfg41m9g2a87kr27uso10p0@group.calendar.google.com";
+		if(valueCalendarCombo == 3) dateObject.calendar = "t82rb1fmjt84v4mq2sso91fr7c@group.calendar.google.com";
 		
 		return dateObject;
     }

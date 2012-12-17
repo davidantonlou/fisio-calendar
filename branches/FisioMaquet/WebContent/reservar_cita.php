@@ -74,6 +74,12 @@
 		    else if (document.getElementById("title").value == ""){
 			    alert("Debes introducir un nombre para la reserva.");
 		    }
+		    else if (document.getElementById("title").value == ""){
+			    alert("Debes introducir un nombre para la reserva.");
+		    }
+		    else if (document.getElementById("title").value == ""){
+			    alert("Debes introducir un nombre para la reserva.");
+		    }
 		    else{
 			    document.createEvent.eventId.value =document.createEvent.selectDate.options[document.createEvent.selectDate.options.selectedIndex].value;
 			    document.createEvent.hour.value =   document.createEvent.selectDate.options[document.createEvent.selectDate.options.selectedIndex].innerHTML;
@@ -92,7 +98,15 @@
 	<a class="button" href="javascript: location.href='login.php?modo=desconectar';" style="margin-left: 90%">Desconectar</a>
 <?php }?>
 
-<h1 class="title">Reserva de citas</h1>
+<h1 class="title" style="margin-left: 5%">Reserva de citas</h1>
+<table style="width: 60%;margin-left: 10%">
+	<tr>
+		<td>
+			<span class="explica">El sistema de reserva de citas online &uacute;nicamente permite reservar con un m&iacute;nimo de 24h de antelaci&oacute;n y exige siempre un pago en concepto de reserva. Por este motivo si usted quiere reservar sesi&oacute;n en el mismo d&iacute;a o tiene su sesi&oacute;n de fisioterapia ya abonada (bonos, tarjetas-regalo, etc.) tendr&aacute; que hacer la reserva llamando directamente al centro de Fisioterapia Valdespartera (976 935 739 / 695 701 065).</span>
+		</td>
+	</tr>
+</table>
+
 <form id="createEvent" name="createEvent" method="post" action="confirmar_reserva.php">
 	
 	<input type="hidden" name="calendar"/>
@@ -107,8 +121,24 @@
 			<td>
 				 <table style="padding-left: 10%;margin-bottom: 45%;">
 				 	<tr>
+				 		<td> <span class="text">Nombre: </span>  </td>
+				 		<td> <input type="text" size="55px" id="title" name="title"  class="required"/> </td>
+				 	</tr>
+				 	<tr>
+				 		<td> <span class="text">Apellidos: </span>  </td>
+				 		<td> <input type="text" size="55px" id="surname" name="surname"  class="required"/> </td>
+				 	</tr>
+				 	<tr>
+				 		<td> <span class="text">Telefono: </span>  </td>
+				 		<td> <input type="text" size="55px" id="telephone" name="telephone"  class="required"/> </td>
+				 	</tr>
+				 	<tr>
+				 		<td> <span class="text">Email</span>  </td>
+				 		<td> <input type="text" size="55px" id="email" name="email"  class="required"/> </td>
+				 	</tr>
+				 	<tr>
 				 		<td>
-				 			<span class="text">Seleccione doctor :</span>
+				 			<span class="text">Seleccione fisio :</span>
 				 		</td>
 				 		<td>
 				 			<select id="calendarCombo" name="calendarCombo" onchange="changeCalendar(this.value);"  class="required">
@@ -138,11 +168,7 @@
 				 		</td>
 				 	</tr>
 				 	<tr>
-				 		<td> <span class="text">Nombre: </span>  </td>
-				 		<td> <input type="text" size="55px" id="title" name="title"  class="required"/> </td>
-				 	</tr>
-				 	<tr>
-				 		<td> <span class="text"> Anotaciones adicionales: </span> </td>
+				 		<td> <span class="text"> Descripcion del tratamiento: </span> </td>
 				 		<td> <textarea id="description" name="description" style="resize: none;" cols="25" rows="2"></textarea> </td>
 				 	</tr>
 				 	<tr>
