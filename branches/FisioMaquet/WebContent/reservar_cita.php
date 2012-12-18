@@ -95,7 +95,7 @@
 <body>
 <div class="background">
 <?php if ($isAdmin){?>
-	<a class="button" href="javascript: location.href='login.php?modo=desconectar';" style="margin-left: 90%">Desconectar</a>
+	<a class="button" href="javascript: location.href='administracion.php?modo=desconectar';" style="margin-left: 90%">Desconectar</a>
 <?php }?>
 
 <h1 class="title" style="margin-left: 5%">Reserva de citas</h1>
