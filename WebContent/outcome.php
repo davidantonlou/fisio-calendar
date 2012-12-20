@@ -1,5 +1,5 @@
 <?php
-
+	$error = $_GET["error"];
 ?>
 
 
@@ -23,17 +23,35 @@
 				
 				<table class="center" style="margin-top: 15%;margin-left: 25%;">
 					<tr>
-						<td><span class="finishTittle">Su reseva se ha realizado de forma satisfactioria</span></td>
+						<td>
+						<?php 
+						if($error==false){
+							echo '<span class="finishTittle">Su reseva se ha realizado de forma satisfactioria</span>';
+						}else{
+							echo '<span class="finishTittle">Su reseva se ha realizado de forma satisfactioria</span>';
+						}
+						
+						?>
+						</td>
 					</tr>
 					<tr>
 						<td></td>
 					</tr>
 					<tr>
 						<td >
-							<p style="margin-left: 20%;margin-top: 5%" class="">
+							<?php 
+							if($error==false){
+								echo
+								'<p style="margin-left: 20%;margin-top: 5%" class="">
 								Gracias por usar nuestros servicios si tiene alguna sobre la cita o la quiere modifcar
 								no dude en llamar al telefono: 976858585
-							</p>
+								</p>';
+							}else{
+								
+								
+							}
+							
+							?>
 						</td>
 					</tr>
 					<tr>

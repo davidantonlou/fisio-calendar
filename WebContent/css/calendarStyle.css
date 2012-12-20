@@ -31,7 +31,7 @@ p
  div.background
 {
 	  background-image:url('http://www.fisioterapiavaldespartera.com/sites/all/themes/danland/images/fondo-content.jpg');
-	 /* background-repeat: repeat-y repeat-x;*/
+	 	/* background-repeat: repeat-y repeat-x;*/
 		/* Rellenamos el fondo */
        min-height: 100%;
        min-width: 800px;
@@ -276,7 +276,7 @@ input
 
 .tableInfo tr:first-child td{
 
-		background:-o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
+	background:-o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
 	background:-moz-linear-gradient( center top, #ff7f00 5%, #bf5f00 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7f00", endColorstr="#bf5f00");	background: -o-linear-gradient(top,#ff7f00,bf5f00);
 
