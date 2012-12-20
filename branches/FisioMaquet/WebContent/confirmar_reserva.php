@@ -10,6 +10,12 @@
 	if (isset($_SESSION['user']))
 		$isAdmin=true;
 	
+	//validacion email
+	 //if ((!ereg("^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*$", $email)) or (!getmxrr($emailhost1, $mxhostarr))) 
+    // $mensajeerror .= "ERROR, $email no es una direccion válida";
+   
+	//Validacion telefono
+	
 	// Verificamos si ya estaba realizada la reserva
 	$sqlQuery=mysql_query("SELECT numpedido FROM pedidos WHERE fecha = '". $_POST["datepicker"] ."' AND hora = '". $_POST["selectDate"] ."' AND fisio = '". $_POST["calendarCombo"] ."' AND pagado = '1'");
 	$pedido = @mysql_fetch_assoc($sqlQuery);

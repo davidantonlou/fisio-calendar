@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="css/calendarStyle.css"/> 
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+    <script src="js/validations.js"></script>
     <script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
     <style>
   	    div.backgroundSpecial
@@ -80,11 +81,14 @@
 		    else if (document.getElementById("title").value == ""){
 			    alert("Debes introducir un nombre para la reserva.");
 		    }
-		    else if (document.getElementById("title").value == ""){
-			    alert("Debes introducir un nombre para la reserva.");
+		    else if (document.getElementById("surname").value == ""){
+			    alert("Debes introducir el apellido para la reserva.");
 		    }
-		    else if (document.getElementById("title").value == ""){
-			    alert("Debes introducir un nombre para la reserva.");
+		    else if (!validateTelephone(document.getElementById("telephone").value)){
+			    alert("Debes introducir un telefono valido para la reserva.");
+		    }
+		    else if (!validateEmail(document.getElementById("email").value)){
+			    alert("Debes introducir un email valido para la reserva.");
 		    }
 		    else{
 			    document.createEvent.eventId.value =document.createEvent.selectDate.options[document.createEvent.selectDate.options.selectedIndex].value;
@@ -93,7 +97,7 @@
 				document.createEvent.startDateFormatRFC.value = arrayGlobalDates[document.createEvent.selectDate.options.selectedIndex].startDate;
 		    	document.createEvent.submit();
 		    }
-	    };	    
+	    }	    
      </script>
      
   	 <script src="js/calendarActions.js"></script>  	 

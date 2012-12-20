@@ -93,7 +93,7 @@
 				try{
 					// Create the event on google server
 					$newEvent = $service->insertEvent($eventToInsert);
-					header('Location: outcome.php');
+					header('Location: outcome.php?error=false');
 						 
 					session_unset();
 					session_destroy();
@@ -101,6 +101,7 @@
 				}catch(Exception $e)
 				{
 					echo "<script>alert('Ha ocurrido un error insertando en el calendario ')</script>";
+					header('Location: outcome.php?error=true');
 				}
 					
 			}
@@ -109,6 +110,7 @@
         }
         else{ // Ha ocurrido un erro al realizar el pago
                 echo "<script>alert('Ha ocurrido un error al realizar el pago.')</script>";
+                header('Location: outcome.php?error=true');
                 session_unset();
                 session_destroy();
         }
