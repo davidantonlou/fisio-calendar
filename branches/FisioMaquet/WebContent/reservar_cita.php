@@ -16,11 +16,17 @@
     <meta charset="utf-8" />
     <title>Fisioterapia Valdespartera</title>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
-    <link rel="stylesheet" href="css/calendarStyle.css"> 
+    <link rel="stylesheet" href="css/calendarStyle.css"/> 
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
     <script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
-    
+    <style>
+  	    div.backgroundSpecial
+    	{
+   		 background-image:url('http://www.fisioterapiavaldespartera.com/sites/all/themes/danland/images/fondo-content.jpg');
+   		}
+   	 	
+    </style>
     <script>
 	    function changeCalendar(value)
 	    {
@@ -93,7 +99,7 @@
   	 <script src="js/calendarActions.js"></script>  	 
 </head>
 <body>
-<div class="background">
+<div class="backgroundSpecial">
 <?php if ($isAdmin){?>
 	<a class="button" href="javascript: location.href='administracion.php?modo=desconectar';" style="margin-left: 90%">Desconectar</a>
 <?php }?>
@@ -119,7 +125,7 @@
 	<table style="width: 100%;">
 		<tr>
 			<td>
-				 <table style="padding-left: 10%;margin-bottom: 45%;">
+				 <table style="padding-left: 5%;margin-bottom: 45%;">
 				 	<tr>
 				 		<td> <span class="text">Nombre: </span>  </td>
 				 		<td> <input type="text" size="55px" id="title" name="title"  class="required"/> </td>
