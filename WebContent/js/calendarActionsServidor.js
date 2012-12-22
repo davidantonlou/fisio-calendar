@@ -1,6 +1,6 @@
 
 	//Global variables
-    var apiKey = 'AIzaSyC4kEUm9zw-q32N3RB9M808kt1SlCIheig';
+    var apiKey = 'AIzaSyC374svusB4lUrP9BUFMfLnxsotE_AivqA';
     var arrayGlobalDates;
     //Carga las horas libres 
     function loadFreeHours(day,calendar)
@@ -18,13 +18,13 @@
 		dateObject.month = day.split("/")[1];
 		dateObject.year = day.split("/")[2];
 		var valueCalendarCombo = getSelectedOption("calendarCombo");
-		if(valueCalendarCombo == 1) dateObject.calendar = "fisioterapiavaldespartera.es_peqjduu5k98ck3imq4j6ttpcls%40group.calendar.google.com" ;Angel
-		if(valueCalendarCombo == 2) dateObject.calendar = "fisioterapiavaldespartera.es_n3knaajqgi0k9ovb3omudh81r8%40group.calendar.google.com" ;Pablo
-		if(valueCalendarCombo == 3) dateObject.calendar = "fisioterapiavaldespartera.es_amm58uvk6guook08ulfvbbdgtc%40group.calendar.google.com" ;Javi
-		if(valueCalendarCombo == 4) dateObject.calendar = "fisioterapiavaldespartera.es_jnptk0j0e6vk2fvsmkb5i5u4j0%40group.calendar.google.com" ;Juanan
-		if(valueCalendarCombo == 5) dateObject.calendar = "fisioterapiavaldespartera.es_3jp88fldi6aepm6p3cvpkffn50%40group.calendar.google.com" ;Mapi
-		if(valueCalendarCombo == 6) dateObject.calendar = "fisioterapiavaldespartera.es_2id3c2eid2tv9adlci8r82m0i8%40group.calendar.google.com" ;Victor
-		if(valueCalendarCombo == 7) dateObject.calendar = "fisioterapiavaldespartera.es_pce2rbmv9vmp03jcoqm51pqf18%40group.calendar.google.com" ;Raul
+		if(valueCalendarCombo == 1) dateObject.calendar = "fisioterapiavaldespartera.es_peqjduu5k98ck3imq4j6ttpcls@group.calendar.google.com" ;//Angel
+		if(valueCalendarCombo == 2) dateObject.calendar = "fisioterapiavaldespartera.es_n3knaajqgi0k9ovb3omudh81r8@group.calendar.google.com" ;//Pablo
+		if(valueCalendarCombo == 3) dateObject.calendar = "fisioterapiavaldespartera.es_amm58uvk6guook08ulfvbbdgtc@group.calendar.google.com" ;//Javi
+		if(valueCalendarCombo == 4) dateObject.calendar = "fisioterapiavaldespartera.es_jnptk0j0e6vk2fvsmkb5i5u4j0@group.calendar.google.com" ;//Juanan
+		if(valueCalendarCombo == 5) dateObject.calendar = "fisioterapiavaldespartera.es_3jp88fldi6aepm6p3cvpkffn50@group.calendar.google.com" ;//Mapi
+		if(valueCalendarCombo == 6) dateObject.calendar = "fisioterapiavaldespartera.es_2id3c2eid2tv9adlci8r82m0i8@group.calendar.google.com" ;//Victor
+		if(valueCalendarCombo == 7) dateObject.calendar = "fisioterapiavaldespartera.es_pce2rbmv9vmp03jcoqm51pqf18@group.calendar.google.com" ;//Raul
 		
 		return dateObject;
     }
@@ -40,7 +40,7 @@
 	    };
 
 		var request = $.ajax({
-			  url: 'https://www.googleapis.com/calendar/v3/calendars/'+encodeURIComponent(dayObject.calendar)+'/events?timeMax='+encodeURIComponent(requestParameters.timeMax)+'&timeMin='+encodeURIComponent(requestParameters.timeMin)+'&key='+apiKey,
+			  url: 'https://www.googleapis.com/calendar/v3/calendars/'+encodeURIComponent(dayObject.calendar)+'/events?timeMax='+encodeURIComponent(requestParameters.timeMax)+'&timeMin='+encodeURIComponent(requestParameters.timeMin)+'&key='+encodeURIComponent(apiKey),
 			  type: "GET",
 			  beforeSend: function ( xhr ) {xhr.overrideMimeType("application/json"); },
 			});
@@ -108,25 +108,28 @@
 			else
 				timeString = resp.start.dateTime;
 			//Create the dateObject
-			
-				dateObject.hour = timeString.split("T")[1].split(":")[0];
-				dateObject.minutes = timeString.split("T")[1].split(":")[1];
-				dateObject.day = timeString.split("-")[2].split("T")[0];
-				dateObject.month = timeString.split("-")[1];
-				dateObject.year = timeString.split("-")[0];
-				
-				dateObject.startDate = timeString;
-				
-				if(resp.result != undefined)
+				if(timeString!=undefined)
 				{
-					dateObject.summary = resp.result.summary;
-					dateObject.id = rep.result.id;
-					dateObject.endDate = resp.resutl.end.dateTime; 				
-				}else{
-					dateObject.summary = resp.summary;
-					dateObject.id = resp.id;
-					dateObject.endDate = resp.end.dateTime; 
+					dateObject.hour = timeString.split("T")[1].split(":")[0];
+					dateObject.minutes = timeString.split("T")[1].split(":")[1];
+					dateObject.day = timeString.split("-")[2].split("T")[0];
+					dateObject.month = timeString.split("-")[1];
+					dateObject.year = timeString.split("-")[0];
+					
+					dateObject.startDate = timeString;
+					
+					if(resp.result != undefined)
+					{
+						dateObject.summary = resp.result.summary;
+						dateObject.id = rep.result.id;
+						dateObject.endDate = resp.resutl.end.dateTime; 				
+					}else{
+						dateObject.summary = resp.summary;
+						dateObject.id = resp.id;
+						dateObject.endDate = resp.end.dateTime; 
+					}
 				}
+				
 		}
 	
 		
