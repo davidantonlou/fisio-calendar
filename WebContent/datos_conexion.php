@@ -1,5 +1,6 @@
 <?php
-		require_once('log4php/Logger.php');
+		$oldPath = set_include_path(get_include_path() . PATH_SEPARATOR . "log4php");
+		require_once('Logger.php');
 		
 		$ini_array = parse_ini_file("config.ini");
 		
