@@ -25,10 +25,10 @@
 					<tr>
 						<td>
 						<?php 
-						if($error==false){
+						if($error=='false'){
 							echo '<span class="finishTittle">Su reseva se ha realizado de forma satisfactioria</span>';
 						}else{
-							echo '<span class="finishTittle">Su reseva se ha realizado de forma satisfactioria</span>';
+							echo '<span class="finishBadTittle">Su reseva no se ha podido realizar correctamente</span>';
 						}
 						
 						?>
@@ -38,20 +38,14 @@
 						<td></td>
 					</tr>
 					<tr>
-						<td >
-							<?php 
-							if($error==false){
-								echo
-								'<p style="margin-left: 20%;margin-top: 5%" class="">
-								Gracias por usar nuestros servicios si tiene alguna sobre la cita o la quiere modifcar
-								no dude en llamar al telefono: 976858585
-								</p>';
-							}else{
-								
-								
-							}
-							
-							?>
+						<td>
+						<?php 
+						if($error=='false'){
+							echo '<p style="margin-left: 20%;margin-top: 5%" class="">Gracias por usar nuestros servicios si tiene alguna sobre la cita o la quiere modifcar no dude en llamar al telefono: 976858585</p>';
+						}else{
+							echo '<p style="margin-left: 20%;margin-top: 5%" class="">No se ha podido realizar la reserva, vuelva a intentarlo si tiene alguna duda no dude en llamar al telefono: 976858585</p>';
+						}
+						?>
 						</td>
 					</tr>
 					<tr>

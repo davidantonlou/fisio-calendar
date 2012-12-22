@@ -90,7 +90,7 @@
 
     	}
 
-		select.disabled = false;
+    	if(select.length>0)	select.disabled = false;
 	}
     	
 	function createDateObject(resp)

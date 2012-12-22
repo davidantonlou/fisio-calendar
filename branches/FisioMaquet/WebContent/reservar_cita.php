@@ -78,14 +78,20 @@
 		    else if (document.getElementById("selectDate").value == ""){
 			    alert("Debes de seleccionar una hora.");
 		    }
-		    else if (document.getElementById("title").value == ""){
+		    else if ($.trim(document.getElementById("title").value) == ""){
 			    alert("Debes introducir un nombre para la reserva.");
 		    }
-		    else if (document.getElementById("surname").value == ""){
+		    else if ($.trim(document.getElementById("surname").value) == ""){
 			    alert("Debes introducir el apellido para la reserva.");
+		    }
+		    else if ($.trim(document.getElementById("telephone").value).length==0){
+			    alert("Debes introducir un telefono para la reserva.");
 		    }
 		    else if (!validateTelephone(document.getElementById("telephone").value)){
 			    alert("Debes introducir un telefono valido para la reserva.");
+		    }
+		    else if ($.trim(document.getElementById("email").value).length==0){
+			    alert("Debes introducir un email para la reserva.");
 		    }
 		    else if (!validateEmail(document.getElementById("email").value)){
 			    alert("Debes introducir un email valido para la reserva.");

@@ -101,7 +101,7 @@
 <?php if ($isAdmin){?>
 	<a class="button" href="javascript: location.href='administracion.php?modo=desconectar';" style="margin-left: 90%;margin-top: 15%">Desconectar</a>
 <?php }?>
-<div class="center" style="margin-top:10%;margin-left: 35%;">
+<div class="center" style="margin-top:10%;margin-left: 15%;">
 <h1 class="title" style="padding-right: 5%;">Confirmar Reserva</h1>
 <table style="margin-left: 10%">
 	<tr>
@@ -134,7 +134,7 @@
 <?php }?>
 
 
-		<table 	 style="margin-left: 15%;margin-top: 5%;">
+		<table 	 style="margin-left: 15%;margin-top: 5%;width: 100%">
 			<tr>
 		 		<td>Nombre: </td>
 		 		<td><?php echo $_SESSION["title"]; ?>
@@ -183,6 +183,12 @@
 		 		<td></td>
 		 	</tr>
 		 	<tr>
+		 		<td></td>
+		 	</tr>
+		 	<tr>
+		 		<td></td>
+		 	</tr>
+		 	<tr>
 		 	
 		 	<?php if ($isAdmin){ ?>
 		 		<td></td>
@@ -190,8 +196,7 @@
 		 	<?php }else{?>	
 		 		<td><a class="button"  onclick="javascript:document.confirm_date.submit();">Confirmar y Pagar</a></td>
 		 	<?php }?>
-		 	
-		 		<td><a class="button" style="margin-left:20%"  onclick="javascript:history.back();">Volver</a></td>
+		 		<td><a class="button" style="margin-left:10%"  onclick="javascript:history.back();">Volver</a></td>
 		 	</tr>
 		 </table>
  </div>
