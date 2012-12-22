@@ -3,12 +3,9 @@
  * JS que valida los datos del formulario, asi evitamos mandar datos erroneos la servidor
  * 
  */
-function validateEmail(valor) {
-  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/.test(valor)){
-	 return true;
-  } else {
-     return false;
-  }
+function validateEmail(mail) {
+	var exr = /^[0-9a-z_\-\.]+@[0-9a-z\-\.]+\.[a-z]{2,4}$/i;
+	return exr.test(mail);
 }
 
 function validateTelephone(tel)
