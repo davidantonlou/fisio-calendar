@@ -40,6 +40,12 @@
         	$path = '/Zend/library';
 	        $oldPath = set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 	        require_once 'Zend/Loader.php';
+	        
+	        // Para el servidor poner 
+	        // $path = "Zend";
+	        // $oldPath = set_include_path(get_include_path() . PATH_SEPARATOR . $path);
+	        // require_once 'Loader.php';
+	        
 	        Zend_Loader::loadClass('Zend_Gdata');
 	        Zend_Loader::loadClass('Zend_Gdata_AuthSub');
 	        Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
