@@ -1,4 +1,3 @@
-
 	//Global variables
     var apiKey = 'AIzaSyD2XlwCms0WbrFaZ0S_JuaC-5ZFFGIsUgY';
     var arrayGlobalDates;
@@ -82,7 +81,7 @@
     	for(var i= 0;i<object.length;i++)
     	{
     		objectDate = object[i];
-    		if(objectDate.summary != undefined && objectDate.summary != null && objectDate.summary.indexOf("LIBRE") != -1)
+    		if(objectDate.transparency != undefined && objectDate.transparency != null && objectDate.transparency =="transparent")
     		{
     			arrayGlobalDates[j] = objectDate;
     			j++;
@@ -94,7 +93,7 @@
 
     	}
 
-		select.disabled = false;
+		if(select.length>0) select.disabled = false;
 	}
     	
 	function createDateObject(resp)
@@ -107,9 +106,10 @@
 				timeString = resp.result.start.dateTime;
 			else
 				timeString = resp.start.dateTime;
-			//Create the dateObject
+				//Create the dateObject
 				if(timeString!=undefined)
 				{
+
 					dateObject.hour = timeString.split("T")[1].split(":")[0];
 					dateObject.minutes = timeString.split("T")[1].split(":")[1];
 					dateObject.day = timeString.split("-")[2].split("T")[0];
@@ -117,14 +117,13 @@
 					dateObject.year = timeString.split("-")[0];
 					
 					dateObject.startDate = timeString;
-					
 					if(resp.result != undefined)
-					{
-						dateObject.summary = resp.result.summary;
+					{	
+						dateObject.transparency = resp.result.transparency;
 						dateObject.id = rep.result.id;
 						dateObject.endDate = resp.resutl.end.dateTime; 				
 					}else{
-						dateObject.summary = resp.summary;
+						dateObject.transparency = resp.transparency;
 						dateObject.id = resp.id;
 						dateObject.endDate = resp.end.dateTime; 
 					}
