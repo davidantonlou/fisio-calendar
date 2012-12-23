@@ -1,6 +1,6 @@
 
 	//Global variables
-    var apiKey = 'AIzaSyC374svusB4lUrP9BUFMfLnxsotE_AivqA';
+    var apiKey = 'AIzaSyD2XlwCms0WbrFaZ0S_JuaC-5ZFFGIsUgY';
     var arrayGlobalDates;
     //Carga las horas libres 
     function loadFreeHours(day,calendar)
