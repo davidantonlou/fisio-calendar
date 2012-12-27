@@ -1,11 +1,11 @@
 <?php
-
 		session_start();
+		include("datos_conexion.php");
 		$ini_array = parse_ini_file("config.ini");
 		
         $isAdmin=false;
         if (isset($_SESSION['user']))
-                $isAdmin=true;
+        	$isAdmin=true;
        
         if (!$isAdmin){
         	// Recogemos el resultado del pago
@@ -21,20 +21,34 @@
         }
                                                              
         // Recogemos de sesion el detalle de la cita
-        $title = $_SESSION["title"];
-        $description = $_SESSION["description"];
-        $startDate = $_SESSION["startDate"];
-        $startTime = $_SESSION["startTime"];
-        $eventId = $_SESSION["eventId"];
-		$calendar = $_SESSION["calendar"];
-		$idFisio = $_SESSION["calendar"];
-		$endDateRFC = 	$_SESSION["endDateRFormatRFC"];
-		$startDateRFC = $_SESSION["startDateFormatRFC"];
+        $title = $_COOKIE["title"];
+        $description = $_COOKIE["description"];
+        $startDate = $_COOKIE["startDate"];
+        $startTime = $_COOKIE["startTime"];
+        $eventId = $_COOKIE["eventId"];
+		$calendar = $_COOKIE["calendar"];
+		$idFisio = $_COOKIE["calendar"];
+		$endDateRFC = $_COOKIE["endDateRFormatRFC"];
+		$startDateRFC = $_COOKIE["startDateFormatRFC"];
+		$numpedidoOriginal = $_COOKIE["numpedidoOriginal"];
+		
+		// Borramos las cookies
+		setcookie("startDate", $_POST['datepicker'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("startTime", $_POST['hour'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("calendar", $_POST['calendarCombo'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("title", $_POST['title'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("description", $_POST['description'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("eventId", $_POST['eventId'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("endDateRFormatRFC", $_POST['endDateRFormatRFC'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("startDateFormatRFC", $_POST['startDateFormatRFC'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("numpedidoOriginal", $numpedido, time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
         
+		$logger->info("Actualizamos pedido " . $numpedidoOriginal );
+		
         if ($isAdmin || $compra == "si"){ // El pago se ha realizado correctamente
         	if (!$isAdmin){
 	        	// Actualizamos el numero de pedido y lo ponemos como pagado
-	        	mysql_query("UPDATE pedidos SET pagado='true' WHERE numpedido = ". $numpedido ."");
+	        	mysql_query("UPDATE PEDIDOS SET PAGADO=1 WHERE NUMPEDIDO = ". $numpedidoOriginal ."");
         	}
 
         	$path = '/Zend/library';
