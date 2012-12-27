@@ -17,21 +17,21 @@
 	//Validacion telefono
 	
 	// Verificamos si ya estaba realizada la reserva
-	$sqlQuery=mysql_query("SELECT numpedido FROM pedidos WHERE fecha = '". $_POST["datepicker"] ."' AND hora = '". $_POST["selectDate"] ."' AND fisio = '". $_POST["calendarCombo"] ."' AND pagado = '1'");
+	$sqlQuery=mysql_query("SELECT NUMPEDIDO FROM PEDIDOS WHERE FECHA = '". $_POST["datepicker"] ."' AND HORA = '". $_POST["selectDate"] ."' AND FISIO = '". $_POST["calendarCombo"] ."' AND PAGADO = '1'");
 	$pedido = @mysql_fetch_assoc($sqlQuery);
 		
 	// Si se ha realizado una reserva y se desea mostrar el detalle
-	if ($pedido["numpedido"] != null || !isset($_POST['isReserva'])){		
+	if ($pedido["NUMPEDIDO"] != null || !isset($_POST['isReserva'])){		
 		$str_fecha = date("dmyHis");
 		
 		// Creamos un semaforo para evitar numeros de pedido repetidos
-		$sem_key = 12;
-		$sem_id = sem_get($sem_key, 1);
-		if (! sem_acquire($sem_id)) die ('Error esperando a obtener el numero de pedido.');
+// 		$sem_key = 12;
+// 		$sem_id = sem_get($sem_key, 1);
+// 		if (! sem_acquire($sem_id)) die ('Error esperando a obtener el numero de pedido.');
 		// Obtenemos el número de pedido insertado
-		$sqlQuery=mysql_query("SELECT MAX(numpedido) AS numpedido FROM pedidos");
+		$sqlQuery=mysql_query("SELECT MAX(NUMPEDIDO) AS NUMPEDIDO FROM PEDIDOS");
 		$pedido = @mysql_fetch_assoc($sqlQuery);
-		if (! sem_release($sem_id)) die ('Error esperando a obtener el numero de pedido.');
+// 		if (! sem_release($sem_id)) die ('Error esperando a obtener el numero de pedido.');
 				
 		// Insertamos el pedido en base de datos
 		$patientName = $_POST["title"].$_POST["surname"];
@@ -41,8 +41,9 @@
 		$hora = $_POST["hour"];
 		$pagado = false;
 		$fisio = $_POST["calendarCombo"];
-		$numpedido = $pedido["numpedido"] + 1;
-		mysql_query("INSERT INTO pedidos (numpedido, fecha, hora, pagado, fisio,telefono,email,paciente) VALUES (". $numpedido .", '". $fecha ."', '$hora','". $pagado ."', '". $fisio ."', '". $telephone ."', '". $email ."', '". $patientName ."')");
+		$numpedido = $pedido["NUMPEDIDO"] + 1;
+
+		mysql_query("INSERT INTO PEDIDOS (NUMPEDIDO, FECHA, HORA, PAGADO, FISIO,TELEFONO,EMAIL,PACIENTE) VALUES (". $numpedido .", '". $fecha ."', '$hora','". $pagado ."', '". $fisio ."', '". $telephone ."', '". $email ."', '". $patientName ."')");
 		
 		
 		// Guardamos en sesión la información de la reserva
@@ -52,20 +53,31 @@
 		$_SESSION["title"] = $_POST["title"];
 		$_SESSION["description"] = $_POST["description"];
 		$_SESSION["eventId"] = $_POST["eventId"];
-
+		$_SESSION["numpedidoOriginal"] = $numpedido;
 		
 		//Muy util fecha de inicio y fin en formatoRFC
 		$_SESSION["endDateRFormatRFC"] = $_POST["endDateRFormatRFC"];
 		$_SESSION["startDateFormatRFC"] = $_POST["startDateFormatRFC"];
 		
+		setcookie("startDate", $_POST['datepicker'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("startTime", $_POST['hour'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("calendar", $_POST['calendarCombo'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("title", $_POST['title'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("description", $_POST['description'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("eventId", $_POST['eventId'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("endDateRFormatRFC", $_POST['endDateRFormatRFC'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("startDateFormatRFC", $_POST['startDateFormatRFC'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		setcookie("numpedidoOriginal", $numpedido, time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");	
+		
 		
 	if (!$isAdmin){			 		
 		// Preparamos la longitud del número de pedido
-		$num = '' . $pedido["numpedido"];
-		if (strlen($pedido["numpedido"]) < 11){
-			for ($i=strlen($pedido["numpedido"]); $i<10; $i++)
+		$num = '' . $pedido["NUMPEDIDO"] + 1;
+		if (strlen($pedido["NUMPEDIDO"]) < 11){
+			for ($i=strlen($pedido["NUMPEDIDO"]); $i<10; $i++)
 				$num = '0' . $num;
 		}
+	
 		
 		// Preparamos los datos del pago virtual
 		$cip = "111111111111";
