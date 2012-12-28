@@ -22,7 +22,6 @@
                                                              
         // Recogemos de sesion el detalle de la cita
         $title = $_COOKIE["title"];
-        $description = $_COOKIE["description"];
         $startDate = $_COOKIE["startDate"];
         $startTime = $_COOKIE["startTime"];
         $eventId = $_COOKIE["eventId"];
@@ -37,7 +36,6 @@
 		setcookie("startTime", $_POST['hour'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
 		setcookie("calendar", $_POST['calendarCombo'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
 		setcookie("title", $_POST['title'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("description", $_POST['description'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
 		setcookie("eventId", $_POST['eventId'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
 		setcookie("endDateRFormatRFC", $_POST['endDateRFormatRFC'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
 		setcookie("startDateFormatRFC", $_POST['startDateFormatRFC'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
@@ -103,7 +101,7 @@
        		    $eventToInsert= $service->newEventEntry();
        		    //Creamos un nuevo Evento 
        		    $eventToInsert->title = $service->newTitle($title);
-				$eventToInsert->content = $service->newContent($description);
+				$eventToInsert->content = $service->newContent("");
 				$eventToInsert->visibility = $service->newVisibility("http://schemas.google.com/g/2005#event.private");
 				$when2 = $service->newWhen();
 					$when2->startTime = $startDateRFC; // 8th July 2010, 4:30 pm (+5:30 GMT)					

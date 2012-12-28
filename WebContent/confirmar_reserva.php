@@ -34,7 +34,7 @@
 // 		if (! sem_release($sem_id)) die ('Error esperando a obtener el numero de pedido.');
 				
 		// Insertamos el pedido en base de datos
-		$patientName = $_POST["title"].$_POST["surname"];
+		$patientName = $_POST["title"]." ".$_POST["surname"];
 		$telephone = $_POST["telephone"];
 		$email = $_POST["email"];
 		$fecha = $_POST["datepicker"];
@@ -51,7 +51,6 @@
 		$_SESSION["startTime"] = $_POST["hour"];
 		$_SESSION["calendar"] = $_POST["calendarCombo"];
 		$_SESSION["title"] = $_POST["title"];
-		$_SESSION["description"] = $_POST["description"];
 		$_SESSION["eventId"] = $_POST["eventId"];
 		$_SESSION["numpedidoOriginal"] = $numpedido;
 		
@@ -63,7 +62,6 @@
 		setcookie("startTime", $_POST['hour'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
 		setcookie("calendar", $_POST['calendarCombo'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
 		setcookie("title", $_POST['title'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("description", $_POST['description'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
 		setcookie("eventId", $_POST['eventId'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
 		setcookie("endDateRFormatRFC", $_POST['endDateRFormatRFC'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
 		setcookie("startDateFormatRFC", $_POST['startDateFormatRFC'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
@@ -180,11 +178,6 @@
 		 	<tr>
 		 		<td>Fisioterapeuta: </td>
 		 		<td><?php echo $ini_array['namesList'][$_SESSION["calendar"]] ?>
-		 		</td>
-		 	</tr>
-		 	<tr>
-		 		<td>Descripci&oacute;n: </td>
-		 		<td><?php echo $_SESSION["description"]; ?>
 		 		</td>
 		 	</tr>
 		 	<tr>

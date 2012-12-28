@@ -184,10 +184,6 @@
 				 		</td>
 				 	</tr>
 				 	<tr>
-				 		<td> <span class="text"> Descripcion del tratamiento: </span> </td>
-				 		<td> <textarea id="description" name="description" style="resize: none;" cols="25" rows="2"></textarea> </td>
-				 	</tr>
-				 	<tr>
 				 		<td>
 				 		</td>
 				 		<td>
