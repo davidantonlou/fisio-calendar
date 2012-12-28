@@ -41,9 +41,9 @@
 						<td>
 						<?php 
 						if($error=='false'){
-							echo '<p style="margin-left: 20%;margin-top: 5%" class="">Gracias por usar nuestros servicios si tiene alguna sobre la cita o la quiere modifcar no dude en llamar al telefono: 976858585</p>';
+							echo '<p style="margin-left: 20%;margin-top: 5%" class="">Gracias por usar nuestros servicios si tiene alguna sobre la cita o la quiere modifcar no dude en llamar al telefono: 976935739 </p>';
 						}else{
-							echo '<p style="margin-left: 20%;margin-top: 5%" class="">No se ha podido realizar la reserva, vuelva a intentarlo si tiene alguna duda no dude en llamar al telefono: 976858585</p>';
+							echo '<p style="margin-left: 20%;margin-top: 5%" class="">No se ha podido realizar la reserva, vuelva a intentarlo si tiene alguna duda no dude en llamar al telefono: 976935739 </p>';
 						}
 						?>
 						</td>
