@@ -58,14 +58,14 @@
 		$_SESSION["endDateRFormatRFC"] = $_POST["endDateRFormatRFC"];
 		$_SESSION["startDateFormatRFC"] = $_POST["startDateFormatRFC"];
 		
-		setcookie("startDate", $_POST['datepicker'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("startTime", $_POST['hour'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("calendar", $_POST['calendarCombo'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("title", $_POST['title'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("eventId", $_POST['eventId'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("endDateRFormatRFC", $_POST['endDateRFormatRFC'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("startDateFormatRFC", $_POST['startDateFormatRFC'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("numpedidoOriginal", $numpedido, time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");	
+		//setcookie("startDate", $_POST['datepicker'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("startTime", $_POST['hour'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("calendar", $_POST['calendarCombo'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("title", $_POST['title'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("eventId", $_POST['eventId'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("endDateRFormatRFC", $_POST['endDateRFormatRFC'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("startDateFormatRFC", $_POST['startDateFormatRFC'], time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("numpedidoOriginal", $numpedido, time() + 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");	
 		
 		
 	if (!$isAdmin){			 		
@@ -85,7 +85,7 @@
 		$terminal = "001";
 		$idioma = "0";
 		$numpedido = $num;
-		$url = $ini_array["urlResult"];
+		$url = 'http://'.$_SERVER['HTTP_HOST'].'/'.$ini_array["urlResult"];
 		
 		$sha = new SHA;
 		// Fecha + CIP + Importe + Moneda + Numero de Pedido

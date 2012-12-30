@@ -21,28 +21,28 @@
         }
                                                              
         // Recogemos de sesion el detalle de la cita
-        $title = $_COOKIE["title"];
-        $startDate = $_COOKIE["startDate"];
-        $startTime = $_COOKIE["startTime"];
-        $eventId = $_COOKIE["eventId"];
-		$calendar = $_COOKIE["calendar"];
-		$idFisio = $_COOKIE["calendar"];
-		$endDateRFC = $_COOKIE["endDateRFormatRFC"];
-		$startDateRFC = $_COOKIE["startDateFormatRFC"];
-		$numpedidoOriginal = $_COOKIE["numpedidoOriginal"];
+        $title = $_SESSION["title"];
+        $startDate = $_SESSION["startDate"];
+        $startTime = $_SESSION["startTime"];
+        $eventId = $_SESSION["eventId"];
+		$calendar = $_SESSION["calendar"];
+		$idFisio = $_SESSION["calendar"];
+		$endDateRFC = $_SESSION["endDateRFormatRFC"];
+		$startDateRFC = $_SESSION["startDateFormatRFC"];
+		$numpedidoOriginal = $_SESSION["numpedidoOriginal"];
 		
 		// Borramos las cookies
-		setcookie("startDate", $_POST['datepicker'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("startTime", $_POST['hour'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("calendar", $_POST['calendarCombo'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("title", $_POST['title'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("eventId", $_POST['eventId'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("endDateRFormatRFC", $_POST['endDateRFormatRFC'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("startDateFormatRFC", $_POST['startDateFormatRFC'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
-		setcookie("numpedidoOriginal", $numpedido, time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("startDate", $_POST['datepicker'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("startTime", $_POST['hour'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("calendar", $_POST['calendarCombo'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("title", $_POST['title'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("eventId", $_POST['eventId'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("endDateRFormatRFC", $_POST['endDateRFormatRFC'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("startDateFormatRFC", $_POST['startDateFormatRFC'], time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
+		//setcookie("numpedidoOriginal", $numpedido, time() - 3600 * 24 * 365, "", "www.fisioterapiavaldespartera.es");
         
 		$logger->info("Actualizamos pedido " . $numpedidoOriginal );
-		
+		$logger->info("Actualizamos pedido para ".$title);
         if ($isAdmin || $compra == "si"){ // El pago se ha realizado correctamente
         	if (!$isAdmin){
 	        	// Actualizamos el numero de pedido y lo ponemos como pagado
@@ -103,6 +103,8 @@
        		    $eventToInsert->title = $service->newTitle($title);
 				$eventToInsert->content = $service->newContent("");
 				$eventToInsert->visibility = $service->newVisibility("http://schemas.google.com/g/2005#event.private");
+				
+				
 				$when2 = $service->newWhen();
 					$when2->startTime = $startDateRFC; // 8th July 2010, 4:30 pm (+5:30 GMT)					
 					$when2->endTime = $endDateRFC; // 8th July 2010, 5:30 pm (+5:30 GMT)
@@ -110,7 +112,7 @@
 					
 				try{
 					// Create the event on google server
-					$newEvent = $service->insertEvent($eventToInsert);
+					$newEvent = $service->insertEvent($eventToInsert,"http://www.google.com/calendar/feeds/".$ini_array['fisioGooglId'][$idFisio-1]."/private/full");
 					header('Location: outcome.php?error=false');
 						 
 					session_unset();
