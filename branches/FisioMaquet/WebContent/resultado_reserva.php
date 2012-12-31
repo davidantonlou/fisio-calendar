@@ -1,7 +1,6 @@
 <?php
 		session_start();
 		include("datos_conexion.php");
-		$ini_array = parse_ini_file("config.ini");
 		
         $isAdmin=false;
         if (isset($_SESSION['user']))
