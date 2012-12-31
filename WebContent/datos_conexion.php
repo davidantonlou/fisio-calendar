@@ -2,6 +2,7 @@
 		$oldPath = set_include_path(get_include_path() . PATH_SEPARATOR . "log4php");
 		require_once('Logger.php');
 		
+		//$ini_array = parse_ini_file("../../fisiocalendar/config.ini");
 		$ini_array = parse_ini_file("config.ini");
 		
 		Logger::configure(array(
