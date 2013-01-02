@@ -48,8 +48,9 @@
 						{
 						  var arrayOfDates = new Array();						
 					      for (var i = 0; i < resp.items.length; i++)
-						  {  		    	  
-					    	 arrayOfDates[i] =  createDateObject(resp.items[i]);  		       
+						  {  		  
+					    	  var object = createDateObject(resp.items[i]);
+					    	  if(object!=null) arrayOfDates.push(object);	       
 					      }					      
 					      createSelectWithFreeHours(arrayOfDates);
 						}else
@@ -100,9 +101,25 @@
 		if(resp.status != "cancelled")
 		{
 			if(resp.result != undefined )
+			{
 				timeString = resp.result.start.dateTime;
-			else
+				if(resp.result.visibility != undefined 
+						&& resp.result.visibility != null && resp.result.visibility == "private")
+				{
+					//Si es privado no lo queremos ver
+					return null;
+				}
+			}else
+			{
+				if(resp.visibility != undefined && resp.visibility != null
+						&& resp.visibility == "private")
+				{
+					//Si es privado no lo queremos ver
+					return null;
+				}
 				timeString = resp.start.dateTime;
+			}
+				
 			//Create the dateObject
 			
 				dateObject.hour = timeString.split("T")[1].split(":")[0];
@@ -123,6 +140,8 @@
 					dateObject.id = resp.id;
 					dateObject.endDate = resp.end.dateTime; 
 				}
+		}else{
+			return null;
 		}
 	
 		
