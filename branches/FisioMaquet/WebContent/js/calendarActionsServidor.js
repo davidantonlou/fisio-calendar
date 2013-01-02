@@ -1,5 +1,6 @@
+
 	//Global variables
-    var apiKey = 'AIzaSyD2XlwCms0WbrFaZ0S_JuaC-5ZFFGIsUgY';
+    var apiKey = 'AIzaSyCNktjV9zBXqVpfXh_b4mixfhlLIZZPU_E';
     var arrayGlobalDates;
     //Carga las horas libres 
     function loadFreeHours(day,calendar)
@@ -39,7 +40,7 @@
 	    };
 
 		var request = $.ajax({
-			  url: 'https://www.googleapis.com/calendar/v3/calendars/'+encodeURIComponent(dayObject.calendar)+'/events?timeMax='+encodeURIComponent(requestParameters.timeMax)+'&timeMin='+encodeURIComponent(requestParameters.timeMin)+'&key='+encodeURIComponent(apiKey),
+			  url: 'https://www.googleapis.com/calendar/v3/calendars/'+encodeURIComponent(dayObject.calendar)+'/events?timeMax='+encodeURIComponent(requestParameters.timeMax)+'&timeMin='+encodeURIComponent(requestParameters.timeMin)+'&key='+apiKey,
 			  type: "GET",
 			  beforeSend: function ( xhr ) {xhr.overrideMimeType("application/json"); },
 			});
@@ -52,7 +53,8 @@
 						  var arrayOfDates = new Array();						
 					      for (var i = 0; i < resp.items.length; i++)
 						  {  		    	  
-					    	 arrayOfDates[i] =  createDateObject(resp.items[i]);  		       
+					    	  var object = createDateObject(resp.items[i]);
+					    	  if(object!=null) arrayOfDates.push(object); 		       
 					      }					      
 					      createSelectWithFreeHours(arrayOfDates);
 						}else
@@ -81,7 +83,7 @@
     	for(var i= 0;i<object.length;i++)
     	{
     		objectDate = object[i];
-    		if(objectDate.transparency != undefined && objectDate.transparency != null && objectDate.transparency =="transparent")
+    		if(objectDate.summary != undefined && objectDate.summary != null && objectDate.summary.indexOf("LIBRE") != -1)
     		{
     			arrayGlobalDates[j] = objectDate;
     			j++;
@@ -93,7 +95,7 @@
 
     	}
 
-		if(select.length>0) select.disabled = false;
+    	if(select.length>0)	select.disabled = false;
 	}
     	
 	function createDateObject(resp)
@@ -103,32 +105,46 @@
 		if(resp.status != "cancelled")
 		{
 			if(resp.result != undefined )
+			{
 				timeString = resp.result.start.dateTime;
-			else
-				timeString = resp.start.dateTime;
-				//Create the dateObject
-				if(timeString!=undefined)
+				if(resp.result.visibility != undefined 
+						&& resp.result.visibility != null && resp.result.visibility == "private")
 				{
-
-					dateObject.hour = timeString.split("T")[1].split(":")[0];
-					dateObject.minutes = timeString.split("T")[1].split(":")[1];
-					dateObject.day = timeString.split("-")[2].split("T")[0];
-					dateObject.month = timeString.split("-")[1];
-					dateObject.year = timeString.split("-")[0];
-					
-					dateObject.startDate = timeString;
-					if(resp.result != undefined)
-					{	
-						dateObject.transparency = resp.result.transparency;
-						dateObject.id = rep.result.id;
-						dateObject.endDate = resp.resutl.end.dateTime; 				
-					}else{
-						dateObject.transparency = resp.transparency;
-						dateObject.id = resp.id;
-						dateObject.endDate = resp.end.dateTime; 
-					}
+					//Si es privado no lo queremos ver
+					return null;
 				}
+			}else
+			{
+				if(resp.visibility != undefined && resp.visibility != null
+						&& resp.visibility == "private")
+				{
+					//Si es privado no lo queremos ver
+					return null;
+				}
+				timeString = resp.start.dateTime;
+			}
+			//Create the dateObject
+			
+				dateObject.hour = timeString.split("T")[1].split(":")[0];
+				dateObject.minutes = timeString.split("T")[1].split(":")[1];
+				dateObject.day = timeString.split("-")[2].split("T")[0];
+				dateObject.month = timeString.split("-")[1];
+				dateObject.year = timeString.split("-")[0];
 				
+				dateObject.startDate = timeString;
+				
+				if(resp.result != undefined)
+				{
+					dateObject.summary = resp.result.summary;
+					dateObject.id = rep.result.id;
+					dateObject.endDate = resp.resutl.end.dateTime; 				
+				}else{
+					dateObject.summary = resp.summary;
+					dateObject.id = resp.id;
+					dateObject.endDate = resp.end.dateTime; 
+				}
+		}else{
+			return null;
 		}
 	
 		
