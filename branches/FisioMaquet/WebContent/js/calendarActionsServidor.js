@@ -19,7 +19,7 @@
 		dateObject.year = day.split("/")[2];
 		var valueCalendarCombo = getSelectedOption("calendarCombo");
 		if(valueCalendarCombo == 1) dateObject.calendar = "fisioterapiavaldespartera.es_peqjduu5k98ck3imq4j6ttpcls@group.calendar.google.com" ;//Angel
-		if(valueCalendarCombo == 2) dateObject.calendar = "fisioterapiavaldespartera.es_n3knaajqgi0k9ovb3omudh81r8@group.calendar.google.com" ;//Pablo
+		if(valueCalendarCombo == 2) dateObject.calendar = "uq4ekv100c8dhvqbbaghj2vno0%40group.calendar.google.com" ;//Pablo
 		if(valueCalendarCombo == 3) dateObject.calendar = "fisioterapiavaldespartera.es_amm58uvk6guook08ulfvbbdgtc@group.calendar.google.com" ;//Javi
 		if(valueCalendarCombo == 4) dateObject.calendar = "fisioterapiavaldespartera.es_jnptk0j0e6vk2fvsmkb5i5u4j0@group.calendar.google.com" ;//Juanan
 		if(valueCalendarCombo == 5) dateObject.calendar = "fisioterapiavaldespartera.es_3jp88fldi6aepm6p3cvpkffn50@group.calendar.google.com" ;//Mapi
