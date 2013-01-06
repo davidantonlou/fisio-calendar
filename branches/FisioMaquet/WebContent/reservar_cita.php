@@ -54,7 +54,7 @@
 	    	 $( "#datepicker" ).datepicker({ dateFormat: "dd/mm/yy" });
 	    	 $( "#datepicker" ).datepicker('option', 'firstDay', 1);
 	    	 $( "#datepicker" ).datepicker("option", "minDate", '+1d');
-	         
+	    	 $( "#datepicker" ).datepicker("option", "maxDate", '+1m');	         
 	    });	    
      </script>
      
